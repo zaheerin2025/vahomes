@@ -38,7 +38,7 @@ export function MobileCtaBar() {
                 Call Now
               </a>
               <a
-                href="#contact"
+                href="/book"
                 className="flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-br from-[#E53935] to-[#C62828] py-3 text-sm font-bold text-white shadow-md transition-transform active:scale-[0.98]"
               >
                 <CalendarCheck className="size-4" />

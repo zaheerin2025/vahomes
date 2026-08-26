@@ -15,7 +15,9 @@ export function Header() {
   const [active, setActive] = React.useState<string>("#home");
 
   React.useEffect(() => {
-    const onScroll = () => setScrolled(window.scrollY > 16);
+    // Use a slightly larger threshold so the big logo stays until the user
+    // actually starts scrolling into the page.
+    const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -52,20 +54,20 @@ export function Header() {
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
           scrolled
             ? "border-b border-navy/5 bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_-15px_rgba(13,22,66,0.15)]"
-            : "bg-white/40 backdrop-blur-sm"
+            : "bg-white/60 backdrop-blur-md"
         )}
       >
         <div
           className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10 transition-all duration-300"
-          style={{ height: scrolled ? 68 : 80 }}
+          style={{ height: scrolled ? 70 : 96 }}
         >
-          {/* Logo */}
+          {/* Logo — large & natural when static, shrinks on scroll */}
           <Link
             href="#home"
             aria-label="VA Home Cleaners — home"
-            className="transition-transform hover:scale-[1.02]"
+            className="transition-all duration-300"
           >
-            <Logo height={scrolled ? 38 : 44} />
+            <Logo height={scrolled ? 40 : 68} />
           </Link>
 
           {/* Desktop nav */}
@@ -104,7 +106,7 @@ export function Header() {
               </span>
               {SITE.phone}
             </a>
-            <CtaPrimary href="#contact" size="md" icon={CalendarCheck}>
+            <CtaPrimary href="/book" size="md" icon={CalendarCheck}>
               Book a Cleaning
             </CtaPrimary>
           </div>
@@ -144,7 +146,7 @@ export function Header() {
               className="absolute right-0 top-0 flex h-full w-[84%] max-w-sm flex-col bg-white shadow-2xl"
             >
               <div className="flex items-center justify-between border-b border-navy/5 px-5 py-4">
-                <Logo height={38} />
+                <Logo height={52} />
                 <button
                   type="button"
                   aria-label="Close menu"
@@ -184,7 +186,7 @@ export function Header() {
                   {SITE.phone}
                 </a>
                 <CtaPrimary
-                  href="#contact"
+                  href="/book"
                   size="lg"
                   icon={CalendarCheck}
                   onClick={() => setOpen(false)}

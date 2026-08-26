@@ -23,7 +23,7 @@ const trustChips = [
 
 export function Hero() {
   return (
-    <section id="home" className="relative overflow-hidden pt-28 sm:pt-32 lg:pt-36">
+    <section id="home" className="relative overflow-hidden pt-32 sm:pt-36 lg:pt-40">
       {/* Background decorations */}
       <div className="pointer-events-none absolute inset-0 -z-10">
         <div className="absolute inset-0 bg-gradient-to-b from-gold-soft/50 via-white to-white" />
@@ -116,7 +116,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.28 }}
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
           >
-            <CtaPrimary href="#contact" icon={CalendarCheck}>
+            <CtaPrimary href="/book" icon={CalendarCheck}>
               Book a Cleaning
             </CtaPrimary>
             <CtaSecondary href={SITE.phoneHref} icon={Phone}>

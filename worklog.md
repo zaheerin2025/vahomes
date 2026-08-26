@@ -101,3 +101,45 @@ Stage Summary:
 - Mobile responsive verified: hero, menu drawer, sticky CTA bar all work
 - VLM analysis confirms all 12 sections visible with correct brand colors
 - Dev server HTTP 200, fully functional
+
+---
+Task ID: 3
+Agent: main (Z.ai Code)
+Task: Logo large-when-static + separate service detail pages + redesigned Our Work + professional chip-based booking system
+
+Work Log:
+- Analyzed 4 newly uploaded client photos via VLM:
+  - work-1.jpg: Kitchen AFTER cleaning (pristine, stainless sink)
+  - work-2.jpg: Cleaner in VA t-shirt organizing windowsill
+  - work-3.jpg: Cleaner fluffing cushion on blue sofa
+  - work-4.jpg: Cleaner dusting near grandfather clock (move-out)
+  Copied all to public/images/work-*.jpg
+- Logo behavior: updated Header to show logo at height=68px (natural large size) when static at top, shrinking to 40px on scroll (threshold 40px). Header height transitions 96px→70px. Mobile menu logo bumped to 52px. Hero top padding increased to pt-32/36/40 to accommodate taller header.
+- Built comprehensive service data model in src/lib/services.ts with 8 services, each with: slug, tagline, summary, description, icon, image, gallery (real photos), accent color, popular flag, priceFrom, duration, bestFor, includes (checklist), process (3 steps), benefits (4 cards), faq (3 Q&A). Services: Regular Cleaning, Light Cleaning, Deep Cleaning, Weekly & Bi-Weekly, Post-Construction, Commercial, Eco-Friendly, Cleaning by the Hour ($50/hr).
+- Updated site.ts SERVICES array: now 8 services linking to /services/[slug] detail pages. Added "Wind" icon for Light Cleaning.
+- Redesigned PROJECTS array: now uses 4 real client photos (work-1 to work-4) + 4 AI images. Removed messy masonry spans (wide/tall/normal); replaced with clean `featured` flag for 2x2 visual rhythm. Total 8 projects.
+- Created dynamic service detail pages at src/app/services/[slug]/page.tsx with generateStaticParams + generateMetadata. Uses dynamicParams=false for static generation of all 8 slugs.
+- Built ServiceDetailPage component (service-detail.tsx) with 8 sections: Hero (breadcrumb, badge, tagline, meta chips, CTAs, image), Overview + What's Included checklist card, How It Works 3-step process, Benefits 4-card grid, Gallery with real photos, FAQ accordion (expandable), CTA banner, Related Services. Each service gets accent color (crimson/navy/purple/gold).
+- Redesigned OurWork gallery (our-work.tsx): clean uniform grid (2 cols mobile, 4 cols desktop), featured cards span 2x2 for rhythm, others uniform squares. Category filter buttons now show counts. Added "Real photos from our team" footer note. Lightbox updated to link to /book.
+- Updated Services section (services.tsx): now 4-column grid for 8 services, cleaner compact cards with proper labels per service, "Not sure? Get a free recommendation" CTA linking to /book.
+- Built professional chip-based booking system:
+  - Created /book page (src/app/book/page.tsx) reading ?service= query param
+  - BookingForm component (booking-form.tsx): 4-step wizard with progress stepper
+    - Step 1: Service selection as selectable CARDS (not dropdown) — 8 services with icons, taglines, popular badges
+    - Step 2: Frequency (4 button options), Home size (5 button options), Priority areas as toggleable CHIPS (10 areas: Kitchen, Bathrooms, etc.)
+    - Step 3: Date picker + notes + live summary card showing all selections
+    - Step 4: Contact form (Name/Phone/Email) + 4 trust badges (Experienced Staff, Live Support, Natural Products, Best Equipment)
+  - Animated success card with gold checkmark, "Booking request sent!" message, Call + Back to home buttons
+  - Full validation per step, back/forward navigation, auto-scroll to top
+- Updated all primary "Book a Cleaning" CTAs across site to link to /book instead of #contact: Header (desktop+mobile), Hero, FeaturedService, CtaBanner, Footer, MobileCtaBar, gallery lightbox.
+- Fixed missing icon imports (CalendarClock, Wind, HardHat, Building2, etc.) in booking-form.tsx and service-detail.tsx that caused initial 500 errors.
+
+Stage Summary:
+- Logo: large (68px) when navbar static, shrinks to 40px on scroll ✓
+- 8 separate service detail pages live at /services/[slug] — all HTTP 200, full content (hero, includes, process, benefits, gallery, FAQ, CTA, related) ✓
+- Our Work gallery redesigned: clean uniform grid, featured 2x2 cards, real client photos, category counts ✓
+- Professional booking system at /book: 4-step wizard, chip-based service/frequency/size/priority selection (NO dropdown), success state ✓
+- Full booking flow verified end-to-end: select Deep Cleaning → One-time → 2 Bedroom → Kitchen+Bathrooms chips → date → Carlos Mendez contact → POST /api/quote 200 → DB record saved with all details as JSON ✓
+- All 11 routes return HTTP 200 (home, 8 service pages, /book, /book?service=hourly)
+- ESLint clean, no console errors
+- Real uploaded client photos integrated into gallery + service detail pages

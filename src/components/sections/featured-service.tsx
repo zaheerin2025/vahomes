@@ -105,7 +105,7 @@ export function FeaturedService() {
 
               <Reveal delay={0.2}>
                 <div className="mt-9">
-                  <CtaPrimary href="#contact" icon={ArrowRight} variant="crimson">
+                  <CtaPrimary href="/book" icon={ArrowRight} variant="crimson">
                     Book a Deep Cleaning
                   </CtaPrimary>
                 </div>

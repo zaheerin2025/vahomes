@@ -97,7 +97,7 @@ export function Footer() {
             </li>
             <li className="pt-2">
               <Link
-                href="#contact"
+                href="/book"
                 className="group inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-[#E53935] to-[#C62828] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-transform hover:-translate-y-0.5"
               >
                 Book a Cleaning

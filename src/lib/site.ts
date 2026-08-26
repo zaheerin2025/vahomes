@@ -39,16 +39,25 @@ export const SERVICES: Service[] = [
       "A detailed top-to-bottom cleaning for homes that need extra attention and care.",
     image: "/images/service-deep-cleaning.png",
     icon: "Sparkles",
-    href: "#contact",
+    href: "/services/deep-cleaning",
   },
   {
-    id: "recurring",
-    name: "Weekly & Bi-Weekly Cleaning",
+    id: "regular-cleaning",
+    name: "Regular Cleaning",
     description:
-      "Keep your home consistently fresh with recurring cleaning services scheduled around your needs.",
+      "Perfect for keeping your home or office clean and tidy on a daily basis.",
     image: "/images/service-recurring.png",
     icon: "CalendarClock",
-    href: "#contact",
+    href: "/services/regular-cleaning",
+  },
+  {
+    id: "light-cleaning",
+    name: "Light Cleaning",
+    description:
+      "A quick and basic service, designed to refresh spaces without going too deep.",
+    image: "/images/service-hourly.png",
+    icon: "Wind",
+    href: "/services/light-cleaning",
   },
   {
     id: "post-construction",
@@ -57,7 +66,7 @@ export const SERVICES: Service[] = [
       "Remove dust, debris, and construction residue so your newly completed space is ready to use.",
     image: "/images/service-post-construction.png",
     icon: "HardHat",
-    href: "#contact",
+    href: "/services/post-construction",
   },
   {
     id: "commercial",
@@ -66,7 +75,7 @@ export const SERVICES: Service[] = [
       "Professional cleaning solutions for offices, commercial spaces, and workplaces.",
     image: "/images/service-commercial.png",
     icon: "Building2",
-    href: "#contact",
+    href: "/services/commercial",
   },
   {
     id: "eco-friendly",
@@ -75,7 +84,7 @@ export const SERVICES: Service[] = [
       "Prefer a greener approach? Eco-friendly cleaning products are available upon request.",
     image: "/images/service-eco-friendly.png",
     icon: "Leaf",
-    href: "#contact",
+    href: "/services/eco-friendly",
   },
   {
     id: "hourly",
@@ -84,7 +93,16 @@ export const SERVICES: Service[] = [
       "Flexible hourly cleaning for customers who need help with specific cleaning priorities.",
     image: "/images/service-hourly.png",
     icon: "Clock",
-    href: "#contact",
+    href: "/services/hourly",
+  },
+  {
+    id: "weekly-biweekly",
+    name: "Weekly & Bi-Weekly Cleaning",
+    description:
+      "Keep your home consistently fresh with recurring cleaning services scheduled around your needs.",
+    image: "/images/service-recurring.png",
+    icon: "CalendarClock",
+    href: "/services/weekly-biweekly",
   },
 ];
 
@@ -94,33 +112,49 @@ export type Project = {
   category: string;
   service: string;
   image: string;
-  span?: "wide" | "tall" | "normal";
+  /** optional taller card for visual rhythm */
+  featured?: boolean;
 };
 
 export const PROJECTS: Project[] = [
+  // Real photos first (uploaded by client)
+  {
+    id: "kitchen-real",
+    title: "Kitchen Deep Cleaning",
+    category: "Residential",
+    service: "Residential Service",
+    image: "/images/work-1.jpg",
+    featured: true,
+  },
+  {
+    id: "bedroom-organize",
+    title: "Bedroom & Surfaces",
+    category: "Residential",
+    service: "Residential Service",
+    image: "/images/work-2.jpg",
+  },
+  {
+    id: "living-fluff",
+    title: "Living Room Refresh",
+    category: "Residential",
+    service: "Residential Service",
+    image: "/images/work-3.jpg",
+  },
+  {
+    id: "move-out-detail",
+    title: "Move-Out Detail Clean",
+    category: "Residential",
+    service: "Residential Service",
+    image: "/images/work-4.jpg",
+  },
+  // AI-generated supporting images
   {
     id: "airbnb",
     title: "Airbnb Deep Cleaning",
     category: "Airbnb",
     service: "Airbnb Service",
     image: "/images/gallery-airbnb.png",
-    span: "wide",
-  },
-  {
-    id: "kitchen",
-    title: "Kitchen Cleaning",
-    category: "Residential",
-    service: "Residential Service",
-    image: "/images/gallery-kitchen.png",
-    span: "normal",
-  },
-  {
-    id: "dining",
-    title: "Dining Room Cleaning",
-    category: "Residential",
-    service: "Residential Service",
-    image: "/images/gallery-dining-room.png",
-    span: "normal",
+    featured: true,
   },
   {
     id: "bathroom",
@@ -128,15 +162,13 @@ export const PROJECTS: Project[] = [
     category: "Residential",
     service: "Residential Service",
     image: "/images/gallery-bathroom.png",
-    span: "tall",
   },
   {
-    id: "living",
-    title: "Living Room Cleaning",
+    id: "dining",
+    title: "Dining Room Cleaning",
     category: "Residential",
     service: "Residential Service",
-    image: "/images/gallery-living-room.png",
-    span: "normal",
+    image: "/images/gallery-dining-room.png",
   },
   {
     id: "office",
@@ -144,7 +176,7 @@ export const PROJECTS: Project[] = [
     category: "Commercial",
     service: "Office Service",
     image: "/images/gallery-office.png",
-    span: "wide",
+    featured: true,
   },
 ];
 
