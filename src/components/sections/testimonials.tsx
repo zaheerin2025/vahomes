@@ -9,10 +9,10 @@ import { TESTIMONIALS } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const AVATAR_COLORS = [
-  "from-[#15C3A5] to-[#0A8F7C]",
-  "from-[#F59E0B] to-[#D97706]",
-  "from-[#8B5CF6] to-[#6D28D9]",
-  "from-[#EC4899] to-[#BE185D]",
+  "from-[#E53935] to-[#C62828]",
+  "from-[#1A237E] to-[#0D1642]",
+  "from-[#6A1B9A] to-[#4A148C]",
+  "from-[#D4AF37] to-[#9B7B0E]",
 ];
 
 export function Testimonials() {
@@ -31,24 +31,23 @@ export function Testimonials() {
   const active = TESTIMONIALS[index];
 
   return (
-    <SectionShell className="bg-navy overflow-hidden">
+    <SectionShell className="relative overflow-hidden bg-gradient-to-br from-[#1A237E] via-[#15195F] to-[#0D1642]">
       {/* decorative */}
-      <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-brand/20 blur-3xl" />
-      <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-[#15C3A5]/15 blur-3xl" />
+      <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-gold/15 blur-3xl" />
+      <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-crimson/12 blur-3xl" />
+      {/* gold top accent */}
+      <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
       <div className="relative">
         <SectionHeading
           eyebrow="Testimonials"
-          title={
-            <span className="text-white">
-              What Our Customers Say
-            </span>
-          }
+          title={<span className="text-white">What Our Customers Say</span>}
           description={
             <span className="text-white/65">
               Real feedback from the people and businesses we keep clean.
             </span>
           }
+          onDark
         />
 
         {/* Featured carousel */}
@@ -58,7 +57,7 @@ export function Testimonials() {
           onMouseLeave={() => setPaused(false)}
         >
           <div className="relative overflow-hidden rounded-[2rem] border border-white/10 bg-white/[0.04] p-8 backdrop-blur sm:p-12">
-            <Quote className="absolute right-8 top-8 size-16 text-white/5" />
+            <Quote className="absolute right-8 top-8 size-16 text-gold/15" />
             <AnimatePresence mode="wait">
               <motion.div
                 key={index}
@@ -68,12 +67,12 @@ export function Testimonials() {
                 transition={{ duration: 0.4 }}
                 className="relative"
               >
-                <div className="flex items-center gap-1 text-amber-400">
+                <div className="flex items-center gap-1 text-gold">
                   {Array.from({ length: active.rating }).map((_, i) => (
                     <Star key={i} className="size-5 fill-current" />
                   ))}
                 </div>
-                <p className="mt-5 text-pretty text-lg font-medium leading-relaxed text-white sm:text-xl">
+                <p className="mt-5 font-heading text-pretty text-lg font-medium italic leading-relaxed text-white sm:text-xl">
                   &ldquo;{active.quote}&rdquo;
                 </p>
                 <div className="mt-7 flex items-center gap-4">
@@ -87,7 +86,7 @@ export function Testimonials() {
                   </span>
                   <div>
                     <p className="font-bold text-white">{active.name}</p>
-                    <p className="text-sm text-[#7FE3D0]">{active.service}</p>
+                    <p className="text-sm text-gold">{active.service}</p>
                   </div>
                 </div>
               </motion.div>
@@ -100,7 +99,7 @@ export function Testimonials() {
               type="button"
               aria-label="Previous review"
               onClick={() => setIndex((i) => (i - 1 + count) % count)}
-              className="grid size-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:bg-brand hover:text-white"
+              className="grid size-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-gold hover:bg-gold hover:text-navy"
             >
               <ChevronLeft className="size-5" />
             </button>
@@ -113,9 +112,7 @@ export function Testimonials() {
                   onClick={() => setIndex(i)}
                   className={cn(
                     "h-2 rounded-full transition-all duration-300",
-                    i === index
-                      ? "w-7 bg-brand"
-                      : "w-2 bg-white/25 hover:bg-white/50"
+                    i === index ? "w-7 bg-gold" : "w-2 bg-white/25 hover:bg-white/50"
                   )}
                 />
               ))}
@@ -124,7 +121,7 @@ export function Testimonials() {
               type="button"
               aria-label="Next review"
               onClick={() => setIndex((i) => (i + 1) % count)}
-              className="grid size-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-brand hover:bg-brand hover:text-white"
+              className="grid size-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-gold hover:bg-gold hover:text-navy"
             >
               <ChevronRight className="size-5" />
             </button>

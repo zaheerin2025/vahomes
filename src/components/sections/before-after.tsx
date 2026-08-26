@@ -2,7 +2,6 @@
 
 import * as React from "react";
 import Image from "next/image";
-import { motion } from "framer-motion";
 import { MoveHorizontal, Sparkles } from "lucide-react";
 import { SectionHeading, SectionShell } from "@/components/site/section-heading";
 import { Stagger, StaggerItem } from "@/components/site/reveal";
@@ -67,7 +66,7 @@ function CompareSlider({ pair }: { pair: Pair }) {
   return (
     <div
       ref={ref}
-      className="group relative aspect-[4/3] w-full cursor-ew-resize select-none overflow-hidden rounded-3xl ring-1 ring-navy/5 shadow-[0_20px_60px_-30px_rgba(15,34,48,0.45)]"
+      className="group relative aspect-[4/3] w-full cursor-ew-resize select-none overflow-hidden rounded-3xl ring-1 ring-navy/5 shadow-[0_20px_60px_-30px_rgba(13,22,66,0.45)]"
       onPointerDown={(e) => {
         dragging.current = true;
         update(e.clientX);
@@ -81,7 +80,7 @@ function CompareSlider({ pair }: { pair: Pair }) {
         sizes="(max-width: 768px) 100vw, 50vw"
         className="pointer-events-none object-cover"
       />
-      <span className="absolute right-4 top-4 z-10 rounded-full bg-[#0A8F7C] px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white shadow-md">
+      <span className="absolute right-4 top-4 z-10 rounded-full bg-gradient-to-br from-[#D4AF37] to-[#9B7B0E] px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white shadow-md">
         After
       </span>
 
@@ -99,17 +98,17 @@ function CompareSlider({ pair }: { pair: Pair }) {
             className="object-cover"
           />
         </div>
-        <span className="absolute left-4 top-4 z-10 rounded-full bg-navy/80 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white backdrop-blur">
+        <span className="absolute left-4 top-4 z-10 rounded-full bg-navy/85 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-white backdrop-blur">
           Before
         </span>
       </div>
 
       {/* Divider handle */}
       <div
-        className="absolute inset-y-0 z-20 w-1 -translate-x-1/2 bg-white shadow-[0_0_0_1px_rgba(13,143,124,0.3)]"
+        className="absolute inset-y-0 z-20 w-1 -translate-x-1/2 bg-white shadow-[0_0_0_1px_rgba(198,40,40,0.3)]"
         style={{ left: `${pos}%` }}
       >
-        <div className="absolute left-1/2 top-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-brand shadow-lg ring-4 ring-brand/15 transition-transform group-hover:scale-110">
+        <div className="absolute left-1/2 top-1/2 grid size-11 -translate-x-1/2 -translate-y-1/2 place-items-center rounded-full bg-white text-crimson shadow-lg ring-4 ring-crimson/15 transition-transform group-hover:scale-110">
           <MoveHorizontal className="size-5" />
         </div>
       </div>
@@ -119,13 +118,15 @@ function CompareSlider({ pair }: { pair: Pair }) {
 
 export function BeforeAfter() {
   return (
-    <SectionShell className="bg-gradient-to-b from-brand-soft/30 to-white">
+    <SectionShell className="bg-gradient-to-b from-gold-soft/30 to-white">
       <SectionHeading
         eyebrow="Before & After"
         title={
           <>
             From Before to{" "}
-            <span className="text-brand">Brilliant</span>
+            <span className="bg-gradient-to-r from-[#D4AF37] to-[#9B7B0E] bg-clip-text text-transparent">
+              Brilliant
+            </span>
           </>
         }
         description="A professional clean can completely change the look and feel of a space. Drag the slider to see the transformation."
@@ -137,7 +138,7 @@ export function BeforeAfter() {
             <div className="flex flex-col gap-4">
               <CompareSlider pair={pair} />
               <div className="flex items-center justify-center gap-2 text-sm font-semibold text-navy">
-                <Sparkles className="size-4 text-brand" />
+                <Sparkles className="size-4 text-[#9B7B0E]" />
                 {pair.label} Transformation
               </div>
             </div>

@@ -1,7 +1,6 @@
 "use client";
 
 import * as React from "react";
-import { motion } from "framer-motion";
 import {
   Phone,
   Mail,
@@ -29,7 +28,6 @@ export function Contact() {
     const fd = new FormData(form);
     const data = Object.fromEntries(fd.entries()) as Record<string, string>;
 
-    // simple validation
     const errs: Record<string, string> = {};
     if (!data.name?.trim()) errs.name = "Please enter your name.";
     if (!data.phone?.trim()) errs.phone = "Please enter your phone number.";
@@ -85,13 +83,15 @@ export function Contact() {
   ];
 
   return (
-    <SectionShell id="contact" className="bg-gradient-to-b from-white to-brand-soft/40">
+    <SectionShell id="contact" className="bg-gradient-to-b from-white to-gold-soft/40">
       <SectionHeading
         eyebrow="Contact / Quote"
         title={
           <>
             Let&apos;s Get Your Space{" "}
-            <span className="text-brand">Looking Its Best</span>
+            <span className="bg-gradient-to-r from-[#C62828] to-[#6A1B9A] bg-clip-text text-transparent">
+              Looking Its Best
+            </span>
           </>
         }
         description="Tell us what you need cleaned and we'll help you find the right service."
@@ -101,22 +101,27 @@ export function Contact() {
         {/* Left — contact info */}
         <Reveal className="flex flex-col gap-5">
           {/* Phone highlight card */}
-          <div className="relative overflow-hidden rounded-3xl bg-navy p-7 text-white">
-            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-brand/25 blur-2xl" />
+          <div className="relative overflow-hidden rounded-3xl bg-gradient-to-br from-[#1A237E] to-[#0D1642] p-7 text-white">
+            <div className="pointer-events-none absolute -right-10 -top-10 h-40 w-40 rounded-full bg-gold/20 blur-2xl" />
+            <div className="pointer-events-none absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold to-transparent" />
             <div className="relative">
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-[#7FE3D0]">
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-3 py-1 text-[0.65rem] font-bold uppercase tracking-wider text-gold">
                 <Phone className="size-3" />
                 Call Anytime
               </span>
               <a
                 href={SITE.phoneHref}
-                className="mt-4 block text-2xl font-extrabold tracking-tight text-white transition-colors hover:text-[#7FE3D0] sm:text-3xl"
+                className="mt-4 block font-heading text-2xl font-extrabold tracking-tight text-white transition-colors hover:text-gold sm:text-3xl"
               >
                 {SITE.phone}
               </a>
               <p className="mt-2 text-sm text-white/65">
                 Speak directly with our team — we&apos;re happy to answer any
                 questions and help you book the right service.
+              </p>
+              <p className="mt-4 flex items-center gap-2 text-sm font-semibold italic text-gold">
+                <span className="size-1.5 rounded-full bg-gold" />
+                {SITE.tagline}
               </p>
             </div>
           </div>
@@ -125,8 +130,8 @@ export function Contact() {
           <div className="grid grid-cols-1 gap-3 sm:grid-cols-2">
             {contactItems.map((item) => {
               const Inner = (
-                <div className="group flex h-full items-start gap-3 rounded-2xl border border-navy/5 bg-white p-4 transition-all hover:border-brand/20 hover:shadow-md">
-                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-brand-soft text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+                <div className="group flex h-full items-start gap-3 rounded-2xl border border-navy/5 bg-white p-4 transition-all hover:border-gold/20 hover:shadow-md">
+                  <span className="grid size-10 shrink-0 place-items-center rounded-xl bg-gradient-to-br from-[#1A237E] to-[#0D1642] text-white transition-transform group-hover:scale-110">
                     <item.icon className="size-5" />
                   </span>
                   <div className="min-w-0">
@@ -150,9 +155,9 @@ export function Contact() {
           </div>
 
           {/* trust note */}
-          <div className="rounded-2xl border border-brand/15 bg-brand-soft/50 p-5">
+          <div className="rounded-2xl border border-gold/30 bg-gold-soft/60 p-5">
             <p className="text-sm font-medium leading-relaxed text-navy">
-              <span className="font-bold text-brand">No obligation.</span>{" "}
+              <span className="font-bold text-[#9B7B0E]">No obligation.</span>{" "}
               Requesting a quote is free and there&apos;s no commitment. We&apos;ll
               get back to you with the right cleaning solution for your space.
             </p>
@@ -164,14 +169,14 @@ export function Contact() {
           <form
             onSubmit={handleSubmit}
             noValidate
-            className="relative overflow-hidden rounded-3xl border border-navy/5 bg-white p-6 shadow-[0_20px_60px_-30px_rgba(15,34,48,0.3)] sm:p-8"
+            className="relative overflow-hidden rounded-3xl border border-navy/5 bg-white p-6 shadow-[0_20px_60px_-30px_rgba(13,22,66,0.3)] sm:p-8"
           >
             <div className="mb-6 flex items-center gap-3">
-              <span className="grid size-11 place-items-center rounded-2xl bg-gradient-to-br from-[#15C3A5] to-[#0A8F7C] text-white shadow-md">
+              <span className="grid size-11 place-items-center rounded-2xl bg-gradient-to-br from-[#E53935] to-[#C62828] text-white shadow-md">
                 <CalendarDays className="size-5" />
               </span>
               <div>
-                <h3 className="text-lg font-bold text-navy">
+                <h3 className="font-heading text-lg font-bold text-navy">
                   Request a Free Quote
                 </h3>
                 <p className="text-sm text-muted-foreground">
@@ -255,10 +260,7 @@ export function Contact() {
             <button
               type="submit"
               disabled={status === "loading" || status === "success"}
-              className={cn(
-                "mt-6 group inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-[0.95rem] font-semibold text-white shadow-[0_12px_30px_-10px_rgba(13,143,124,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(13,143,124,0.8)] disabled:cursor-not-allowed disabled:opacity-70",
-                "bg-gradient-to-br from-[#15C3A5] to-[#0A8F7C] hover:from-[#16CCA8] hover:to-[#0B9A84]"
-              )}
+              className="mt-6 group inline-flex w-full items-center justify-center gap-2 overflow-hidden rounded-full px-7 py-3.5 text-[0.95rem] font-semibold text-white shadow-[0_12px_30px_-10px_rgba(198,40,40,0.7)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_18px_40px_-12px_rgba(198,40,40,0.8)] disabled:cursor-not-allowed disabled:opacity-70 bg-gradient-to-br from-[#E53935] to-[#C62828] hover:from-[#EF4444] hover:to-[#D32F2F]"
             >
               {status === "loading" ? (
                 <>
@@ -279,7 +281,7 @@ export function Contact() {
             </button>
 
             {status === "error" ? (
-              <p className="mt-3 text-center text-sm font-medium text-destructive">
+              <p className="mt-3 text-center text-sm font-medium text-crimson">
                 Something went wrong. Please call us at {SITE.phone}.
               </p>
             ) : null}
@@ -310,11 +312,11 @@ function Field({
     <label className="block">
       <span className="mb-1.5 flex items-center gap-1 text-sm font-semibold text-navy">
         {label}
-        {required ? <span className="text-brand">*</span> : null}
+        {required ? <span className="text-crimson">*</span> : null}
       </span>
       {children}
       {error ? (
-        <span className="mt-1 block text-xs font-medium text-destructive">
+        <span className="mt-1 block text-xs font-medium text-crimson">
           {error}
         </span>
       ) : null}
@@ -324,9 +326,9 @@ function Field({
 
 function inputClass(hasError: boolean) {
   return cn(
-    "w-full rounded-xl border bg-white px-4 py-2.5 text-sm text-navy shadow-sm transition-colors placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-brand/30 focus:border-brand",
+    "w-full rounded-xl border bg-white px-4 py-2.5 text-sm text-navy shadow-sm transition-colors placeholder:text-muted-foreground/70 focus:outline-none focus:ring-2 focus:ring-gold/30 focus:border-gold",
     hasError
-      ? "border-destructive/50 focus:border-destructive focus:ring-destructive/20"
+      ? "border-crimson/50 focus:border-crimson focus:ring-crimson/20"
       : "border-navy/10"
   );
 }

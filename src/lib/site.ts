@@ -8,7 +8,8 @@ export const SITE = {
   phone: "+1 (516) 205-8884",
   phoneHref: "tel:+15162058884",
   email: "hello@vahomecleaners.com",
-  tagline: "Premium Home & Commercial Cleaning",
+  tagline: "Limpieza que transforma",
+  taglineEn: "Cleaning that transforms",
   description:
     "Professional residential and commercial cleaning services, including deep cleaning, recurring maintenance, Airbnb cleaning, post-construction cleaning, and more.",
 } as const;

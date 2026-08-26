@@ -17,23 +17,25 @@ export function FeaturedService() {
   return (
     <section className="relative overflow-hidden py-20 sm:py-24 lg:py-28">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
-        <div className="relative overflow-hidden rounded-[2.5rem] bg-navy">
+        <div className="relative overflow-hidden rounded-[2.5rem] bg-gradient-to-br from-[#1A237E] via-[#15195F] to-[#0D1642]">
           {/* decorative glows */}
-          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-brand/30 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-[#15C3A5]/20 blur-3xl" />
+          <div className="pointer-events-none absolute -right-20 -top-20 h-72 w-72 rounded-full bg-gold/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-24 -left-10 h-72 w-72 rounded-full bg-crimson/15 blur-3xl" />
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.15]"
+            className="pointer-events-none absolute inset-0 opacity-[0.12]"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.4) 1px, transparent 0)",
+                "radial-gradient(circle at 1px 1px, rgba(245,197,24,0.5) 1px, transparent 0)",
               backgroundSize: "28px 28px",
             }}
           />
+          {/* gold top accent */}
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#D4AF37] via-[#F5C518] to-[#D4AF37]" />
 
           <div className="relative grid grid-cols-1 items-center gap-10 lg:grid-cols-2">
             {/* Image side */}
             <Reveal className="relative order-1 p-6 sm:p-10 lg:py-14 lg:pl-14">
-              <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-white/10">
+              <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-gold/15">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
                     src="/images/featured-deep-cleaning.png"
@@ -53,7 +55,7 @@ export function FeaturedService() {
                 transition={{ delay: 0.3, duration: 0.5 }}
                 className="absolute -right-2 top-8 flex items-center gap-2 rounded-2xl bg-white px-4 py-2.5 shadow-xl"
               >
-                <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-[#15C3A5] to-[#0A8F7C] text-white">
+                <span className="grid size-9 place-items-center rounded-xl bg-gradient-to-br from-[#F5C518] to-[#D4AF37] text-[#0D1642]">
                   <Sparkles className="size-4.5" />
                 </span>
                 <div className="leading-tight">
@@ -68,13 +70,13 @@ export function FeaturedService() {
             {/* Text side */}
             <div className="relative order-2 px-6 pb-12 sm:px-10 lg:py-14 lg:pr-14 lg:pl-2">
               <Reveal>
-                <span className="inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/5 px-4 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-[#7FE3D0] backdrop-blur">
+                <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-[0.68rem] font-bold uppercase tracking-[0.18em] text-gold backdrop-blur">
                   <Sparkles className="size-3.5" />
                   Featured Service
                 </span>
               </Reveal>
               <Reveal delay={0.05}>
-                <h2 className="mt-5 text-balance text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[2.6rem]">
+                <h2 className="mt-5 font-heading text-balance text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[2.6rem]">
                   Give Your Home the Deep Clean It Deserves
                 </h2>
               </Reveal>
@@ -94,7 +96,7 @@ export function FeaturedService() {
                       key={point}
                       className="flex items-center gap-2.5 text-sm font-medium text-white/90"
                     >
-                      <CheckCircle2 className="size-4.5 shrink-0 text-[#7FE3D0]" />
+                      <CheckCircle2 className="size-4.5 shrink-0 text-gold" />
                       {point}
                     </li>
                   ))}
@@ -103,7 +105,7 @@ export function FeaturedService() {
 
               <Reveal delay={0.2}>
                 <div className="mt-9">
-                  <CtaPrimary href="#contact" icon={ArrowRight}>
+                  <CtaPrimary href="#contact" icon={ArrowRight} variant="crimson">
                     Book a Deep Cleaning
                   </CtaPrimary>
                 </div>

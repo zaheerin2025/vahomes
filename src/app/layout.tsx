@@ -1,19 +1,26 @@
 import type { Metadata } from "next";
-import { Plus_Jakarta_Sans } from "next/font/google";
+import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
 
-const jakarta = Plus_Jakarta_Sans({
-  variable: "--font-jakarta",
+const inter = Inter({
+  variable: "--font-inter",
   subsets: ["latin"],
   display: "swap",
-  weight: ["400", "500", "600", "700", "800"],
+  weight: ["400", "500", "600", "700"],
+});
+
+const playfair = Playfair_Display({
+  variable: "--font-playfair",
+  subsets: ["latin"],
+  display: "swap",
+  weight: ["500", "600", "700", "800", "900"],
 });
 
 export const metadata: Metadata = {
   title: "VA Home Cleaners | Professional Home & Commercial Cleaning",
   description:
-    "Professional residential and commercial cleaning services, including deep cleaning, recurring maintenance, Airbnb cleaning, post-construction cleaning, and more. Book your cleaning today.",
+    "Professional residential and commercial cleaning services — deep cleaning, recurring maintenance, Airbnb, post-construction & more. Limpieza que transforma. Book your cleaning today.",
   keywords: [
     "home cleaning",
     "commercial cleaning",
@@ -24,6 +31,7 @@ export const metadata: Metadata = {
     "office cleaning",
     "eco-friendly cleaning",
     "VA Home Cleaners",
+    "limpieza que transforma",
   ],
   authors: [{ name: "VA Home Cleaners" }],
   icons: {
@@ -32,7 +40,7 @@ export const metadata: Metadata = {
   openGraph: {
     title: "VA Home Cleaners | Professional Home & Commercial Cleaning",
     description:
-      "Professional residential and commercial cleaning services designed to keep your spaces fresh, clean, and comfortable.",
+      "Limpieza que transforma. Professional residential and commercial cleaning services designed to keep your spaces fresh, clean, and comfortable.",
     siteName: "VA Home Cleaners",
     type: "website",
   },
@@ -52,7 +60,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${jakarta.variable} font-sans antialiased bg-background text-foreground`}
+        className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
         {children}
         <Toaster />

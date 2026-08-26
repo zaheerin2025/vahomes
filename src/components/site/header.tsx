@@ -21,7 +21,6 @@ export function Header() {
     return () => window.removeEventListener("scroll", onScroll);
   }, []);
 
-  // Track active section for nav highlight
   React.useEffect(() => {
     const ids = NAV_LINKS.map((l) => l.href.replace("#", ""));
     const observer = new IntersectionObserver(
@@ -39,7 +38,6 @@ export function Header() {
     return () => observer.disconnect();
   }, []);
 
-  // Lock body scroll when mobile menu open
   React.useEffect(() => {
     document.body.style.overflow = open ? "hidden" : "";
     return () => {
@@ -53,12 +51,13 @@ export function Header() {
         className={cn(
           "fixed inset-x-0 top-0 z-50 transition-all duration-300",
           scrolled
-            ? "border-b border-navy/5 bg-white/85 backdrop-blur-xl shadow-[0_8px_30px_-15px_rgba(15,34,48,0.15)]"
-            : "bg-transparent"
+            ? "border-b border-navy/5 bg-white/90 backdrop-blur-xl shadow-[0_8px_30px_-15px_rgba(13,22,66,0.15)]"
+            : "bg-white/40 backdrop-blur-sm"
         )}
       >
-        <div className="mx-auto flex h-[72px] max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10 transition-all duration-300"
-          style={{ height: scrolled ? 64 : 72 }}
+        <div
+          className="mx-auto flex max-w-7xl items-center justify-between px-5 sm:px-8 lg:px-10 transition-all duration-300"
+          style={{ height: scrolled ? 68 : 80 }}
         >
           {/* Logo */}
           <Link
@@ -66,7 +65,7 @@ export function Header() {
             aria-label="VA Home Cleaners — home"
             className="transition-transform hover:scale-[1.02]"
           >
-            <Logo />
+            <Logo height={scrolled ? 38 : 44} />
           </Link>
 
           {/* Desktop nav */}
@@ -78,7 +77,7 @@ export function Header() {
                 className={cn(
                   "relative rounded-full px-4 py-2 text-sm font-semibold transition-colors",
                   active === link.href
-                    ? "text-brand"
+                    ? "text-crimson"
                     : "text-navy/70 hover:text-navy"
                 )}
               >
@@ -86,7 +85,7 @@ export function Header() {
                 {active === link.href ? (
                   <motion.span
                     layoutId="nav-active"
-                    className="absolute inset-0 -z-10 rounded-full bg-brand-soft"
+                    className="absolute inset-0 -z-10 rounded-full bg-crimson-soft"
                     transition={{ type: "spring", stiffness: 380, damping: 30 }}
                   />
                 ) : null}
@@ -98,9 +97,9 @@ export function Header() {
           <div className="hidden items-center gap-3 lg:flex">
             <a
               href={SITE.phoneHref}
-              className="group inline-flex items-center gap-2 text-sm font-bold text-navy transition-colors hover:text-brand"
+              className="group inline-flex items-center gap-2 text-sm font-bold text-navy transition-colors hover:text-crimson"
             >
-              <span className="grid size-8 place-items-center rounded-full bg-brand-soft text-brand transition-colors group-hover:bg-brand group-hover:text-white">
+              <span className="grid size-8 place-items-center rounded-full bg-crimson-soft text-crimson transition-colors group-hover:bg-crimson group-hover:text-white">
                 <Phone className="size-3.5" />
               </span>
               {SITE.phone}
@@ -116,7 +115,7 @@ export function Header() {
             aria-label="Open menu"
             aria-expanded={open}
             onClick={() => setOpen(true)}
-            className="grid size-11 place-items-center rounded-xl border border-navy/10 bg-white/70 text-navy shadow-sm backdrop-blur transition-colors hover:border-brand/40 hover:text-brand lg:hidden"
+            className="grid size-11 place-items-center rounded-xl border border-navy/10 bg-white/70 text-navy shadow-sm backdrop-blur transition-colors hover:border-crimson/40 hover:text-crimson lg:hidden"
           >
             <Menu className="size-5" />
           </button>
@@ -134,7 +133,7 @@ export function Header() {
             className="fixed inset-0 z-[60] lg:hidden"
           >
             <div
-              className="absolute inset-0 bg-navy/40 backdrop-blur-sm"
+              className="absolute inset-0 bg-navy/50 backdrop-blur-sm"
               onClick={() => setOpen(false)}
             />
             <motion.div
@@ -145,12 +144,12 @@ export function Header() {
               className="absolute right-0 top-0 flex h-full w-[84%] max-w-sm flex-col bg-white shadow-2xl"
             >
               <div className="flex items-center justify-between border-b border-navy/5 px-5 py-4">
-                <Logo />
+                <Logo height={38} />
                 <button
                   type="button"
                   aria-label="Close menu"
                   onClick={() => setOpen(false)}
-                  className="grid size-10 place-items-center rounded-xl border border-navy/10 text-navy transition-colors hover:border-brand/40 hover:text-brand"
+                  className="grid size-10 place-items-center rounded-xl border border-navy/10 text-navy transition-colors hover:border-crimson/40 hover:text-crimson"
                 >
                   <X className="size-5" />
                 </button>
@@ -167,10 +166,10 @@ export function Header() {
                     <Link
                       href={link.href}
                       onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-navy transition-colors hover:bg-brand-soft hover:text-brand"
+                      className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-navy transition-colors hover:bg-crimson-soft hover:text-crimson"
                     >
                       {link.label}
-                      <span className="text-brand/40">→</span>
+                      <span className="text-crimson/40">→</span>
                     </Link>
                   </motion.div>
                 ))}
@@ -179,7 +178,7 @@ export function Header() {
               <div className="mt-auto space-y-3 border-t border-navy/5 px-5 py-6">
                 <a
                   href={SITE.phoneHref}
-                  className="flex items-center justify-center gap-2.5 rounded-full border border-navy/10 bg-white py-3.5 font-bold text-navy transition-colors hover:border-brand/40 hover:text-brand"
+                  className="flex items-center justify-center gap-2.5 rounded-full border border-navy/10 bg-white py-3.5 font-bold text-navy transition-colors hover:border-crimson/40 hover:text-crimson"
                 >
                   <Phone className="size-4" />
                   {SITE.phone}
@@ -193,7 +192,10 @@ export function Header() {
                   Book a Cleaning
                 </CtaPrimary>
                 <p className="pt-1 text-center text-xs text-muted-foreground">
-                  Call anytime — we&apos;re here to help.
+                  <span className="font-semibold text-[#9B7B0E]">
+                    {SITE.tagline}
+                  </span>{" "}
+                  — Call anytime.
                 </p>
               </div>
             </motion.div>

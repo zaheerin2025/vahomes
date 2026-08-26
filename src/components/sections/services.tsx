@@ -3,7 +3,6 @@
 import * as React from "react";
 import Image from "next/image";
 import Link from "next/link";
-import { motion } from "framer-motion";
 import {
   Sparkles,
   CalendarClock,
@@ -27,18 +26,30 @@ const ICONS: Record<string, LucideIcon> = {
   Clock,
 };
 
+// Cycle brand colors per card for variety
+const CARD_ACCENTS = [
+  { ring: "ring-[#E53935]/20", badge: "from-[#E53935] to-[#C62828]", text: "text-[#C62828]" },
+  { ring: "ring-[#1A237E]/20", badge: "from-[#1A237E] to-[#0D1642]", text: "text-[#1A237E]" },
+  { ring: "ring-[#6A1B9A]/20", badge: "from-[#6A1B9A] to-[#4A148C]", text: "text-[#6A1B9A]" },
+  { ring: "ring-[#D4AF37]/30", badge: "from-[#D4AF37] to-[#9B7B0E]", text: "text-[#9B7B0E]" },
+  { ring: "ring-[#E53935]/20", badge: "from-[#E53935] to-[#C62828]", text: "text-[#C62828]" },
+  { ring: "ring-[#1A237E]/20", badge: "from-[#1A237E] to-[#0D1642]", text: "text-[#1A237E]" },
+];
+
 export function Services() {
   return (
     <SectionShell
       id="services"
-      className="bg-gradient-to-b from-white to-brand-soft/30"
+      className="bg-gradient-to-b from-white to-gold-soft/30"
     >
       <SectionHeading
         eyebrow="Our Services"
         title={
           <>
             Cleaning Services Designed{" "}
-            <span className="text-brand">Around You</span>
+            <span className="bg-gradient-to-r from-[#C62828] to-[#6A1B9A] bg-clip-text text-transparent">
+              Around You
+            </span>
           </>
         }
         description="Whether you need a one-time deep clean or dependable recurring service, we have flexible cleaning options to fit your space."
@@ -48,13 +59,14 @@ export function Services() {
         className="mt-14 grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 lg:gap-7"
         stagger={0.08}
       >
-        {SERVICES.map((service) => {
+        {SERVICES.map((service, i) => {
           const Icon = ICONS[service.icon] ?? Sparkles;
+          const accent = CARD_ACCENTS[i % CARD_ACCENTS.length];
           return (
             <StaggerItem key={service.id}>
               <Link
                 href={service.href}
-                className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-navy/5 bg-white shadow-[0_10px_40px_-24px_rgba(15,34,48,0.3)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-30px_rgba(13,143,124,0.45)] hover:border-brand/20"
+                className="group relative flex h-full flex-col overflow-hidden rounded-3xl border border-navy/5 bg-white shadow-[0_10px_40px_-24px_rgba(13,22,66,0.3)] transition-all duration-500 hover:-translate-y-1.5 hover:shadow-[0_28px_60px_-30px_rgba(198,40,40,0.4)] hover:ring-2 hover:ring-navy/10"
               >
                 {/* Image */}
                 <div className="relative aspect-[16/11] w-full overflow-hidden">
@@ -67,7 +79,9 @@ export function Services() {
                   />
                   <div className="absolute inset-0 bg-gradient-to-t from-navy/55 via-navy/5 to-transparent" />
                   {/* Icon badge */}
-                  <span className="absolute left-4 top-4 grid size-12 place-items-center rounded-2xl border border-white/30 bg-white/90 text-brand shadow-lg backdrop-blur transition-colors duration-300 group-hover:bg-[#0A8F7C] group-hover:text-white">
+                  <span
+                    className={`absolute left-4 top-4 grid size-12 place-items-center rounded-2xl border border-white/30 bg-white/95 shadow-lg backdrop-blur transition-all duration-300 group-hover:scale-110 bg-gradient-to-br ${accent.badge} !border-transparent text-white`}
+                  >
                     <Icon className="size-5.5" />
                   </span>
                   {/* Service label chip */}
@@ -84,14 +98,14 @@ export function Services() {
 
                 {/* Body */}
                 <div className="flex flex-1 flex-col p-6">
-                  <h3 className="text-lg font-bold leading-snug text-navy transition-colors group-hover:text-brand">
+                  <h3 className="font-heading text-lg font-bold leading-snug text-navy transition-colors group-hover:text-crimson">
                     {service.name}
                   </h3>
                   <p className="mt-2 flex-1 text-sm leading-relaxed text-muted-foreground">
                     {service.description}
                   </p>
                   <div className="mt-5 flex items-center justify-between border-t border-navy/5 pt-4">
-                    <span className="inline-flex items-center gap-1.5 text-sm font-bold text-brand">
+                    <span className={`inline-flex items-center gap-1.5 text-sm font-bold ${accent.text}`}>
                       Learn More
                       <ArrowRight className="size-4 transition-transform duration-300 group-hover:translate-x-1" />
                     </span>
@@ -102,7 +116,7 @@ export function Services() {
                 </div>
 
                 {/* hover accent line */}
-                <span className="absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-gradient-to-r from-[#15C3A5] to-[#0A8F7C] transition-transform duration-500 group-hover:scale-x-100" />
+                <span className={`absolute inset-x-0 bottom-0 h-1 origin-left scale-x-0 bg-gradient-to-r transition-transform duration-500 group-hover:scale-x-100 ${accent.badge}`} />
               </Link>
             </StaggerItem>
           );

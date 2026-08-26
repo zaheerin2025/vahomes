@@ -12,20 +12,22 @@ export function CtaBanner() {
     <section className="relative py-20 sm:py-24 lg:py-28">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
         <div className="relative overflow-hidden rounded-[2.5rem]">
-          {/* gradient bg */}
-          <div className="absolute inset-0 bg-gradient-to-br from-[#0A8F7C] via-[#0E9F8E] to-[#0B7A6B]" />
+          {/* gradient bg — crimson to navy */}
+          <div className="absolute inset-0 bg-gradient-to-br from-[#C62828] via-[#9B1C1C] to-[#1A237E]" />
           {/* decorative pattern */}
           <div
-            className="pointer-events-none absolute inset-0 opacity-[0.15]"
+            className="pointer-events-none absolute inset-0 opacity-[0.13]"
             style={{
               backgroundImage:
-                "radial-gradient(circle at 1px 1px, rgba(255,255,255,0.6) 1px, transparent 0)",
+                "radial-gradient(circle at 1px 1px, rgba(245,197,24,0.7) 1px, transparent 0)",
               backgroundSize: "32px 32px",
             }}
           />
           {/* glows */}
-          <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-white/15 blur-3xl" />
-          <div className="pointer-events-none absolute -bottom-20 -left-10 h-72 w-72 rounded-full bg-[#7FE3D0]/20 blur-3xl" />
+          <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-gold/20 blur-3xl" />
+          <div className="pointer-events-none absolute -bottom-20 -left-10 h-72 w-72 rounded-full bg-purple/20 blur-3xl" />
+          {/* gold top accent */}
+          <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#D4AF37] via-[#F5C518] to-[#D4AF37]" />
 
           {/* floating sparkles */}
           <motion.div
@@ -34,7 +36,7 @@ export function CtaBanner() {
             transition={{ duration: 6, repeat: Infinity, ease: "easeInOut" }}
             className="absolute right-12 top-10 hidden lg:block"
           >
-            <Sparkles className="size-10 text-white/30" />
+            <Sparkles className="size-10 text-gold/50" />
           </motion.div>
           <motion.div
             aria-hidden
@@ -42,18 +44,18 @@ export function CtaBanner() {
             transition={{ duration: 7, repeat: Infinity, ease: "easeInOut" }}
             className="absolute left-16 bottom-12 hidden lg:block"
           >
-            <Sparkles className="size-7 text-white/25" />
+            <Sparkles className="size-7 text-gold/40" />
           </motion.div>
 
           <div className="relative px-6 py-14 text-center sm:px-12 sm:py-16 lg:py-20">
             <Reveal>
-              <span className="inline-flex items-center gap-2 rounded-full border border-white/25 bg-white/10 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-white backdrop-blur">
+              <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-gold backdrop-blur">
                 <Sparkles className="size-3.5" />
                 Get Started Today
               </span>
             </Reveal>
             <Reveal delay={0.05}>
-              <h2 className="mx-auto mt-5 max-w-3xl text-balance text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[3rem]">
+              <h2 className="mx-auto mt-5 max-w-3xl font-heading text-balance text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[3rem]">
                 Ready for a Cleaner Space?
               </h2>
             </Reveal>
@@ -69,14 +71,14 @@ export function CtaBanner() {
                 <CtaPrimary
                   href="#contact"
                   icon={CalendarCheck}
-                  className="!bg-white !text-navy hover:!bg-white hover:!text-brand !from-white !to-white"
+                  variant="gold"
                 >
                   Book Your Cleaning
                 </CtaPrimary>
                 <CtaSecondary
                   href={SITE.phoneHref}
                   icon={Phone}
-                  className="!border-white/30 !bg-white/10 !text-white hover:!bg-white hover:!text-brand hover:!border-white"
+                  className="!border-white/30 !bg-white/10 !text-white hover:!bg-white hover:!text-crimson hover:!border-white"
                 >
                   Call {SITE.phone}
                 </CtaSecondary>
@@ -84,11 +86,11 @@ export function CtaBanner() {
             </Reveal>
 
             <Reveal delay={0.2}>
-              <p className="mt-6 flex items-center justify-center gap-1.5 text-sm font-medium text-white/70">
+              <p className="mt-6 flex items-center justify-center gap-1.5 text-sm font-medium text-white/75">
                 <Phone className="size-3.5" />
                 Call anytime
                 <ArrowRight className="size-3.5" />
-                We&apos;re here to help
+                {SITE.tagline}
               </p>
             </Reveal>
           </div>

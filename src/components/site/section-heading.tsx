@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import { Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Reveal } from "@/components/site/reveal";
 
@@ -11,6 +12,8 @@ type SectionHeadingProps = {
   align?: "left" | "center";
   className?: string;
   titleClassName?: string;
+  /** use light variant for dark backgrounds */
+  onDark?: boolean;
 };
 
 export function SectionHeading({
@@ -20,6 +23,7 @@ export function SectionHeading({
   align = "center",
   className,
   titleClassName,
+  onDark = false,
 }: SectionHeadingProps) {
   return (
     <div
@@ -31,8 +35,15 @@ export function SectionHeading({
     >
       {eyebrow ? (
         <Reveal>
-          <span className="inline-flex items-center gap-2 rounded-full border border-brand/20 bg-brand-soft px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-brand">
-            <span className="size-1.5 rounded-full bg-brand" />
+          <span
+            className={cn(
+              "inline-flex items-center gap-2 rounded-full border px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em]",
+              onDark
+                ? "border-gold/30 bg-gold/10 text-gold"
+                : "border-gold/40 bg-gold-soft text-[#9B7B0E]"
+            )}
+          >
+            <Sparkles className="size-3.5" />
             {eyebrow}
           </span>
         </Reveal>
@@ -40,8 +51,9 @@ export function SectionHeading({
       <Reveal delay={0.05}>
         <h2
           className={cn(
-            "text-balance text-3xl font-extrabold leading-[1.12] tracking-tight text-navy sm:text-4xl md:text-[2.6rem]",
+            "text-balance font-heading text-3xl font-extrabold leading-[1.12] tracking-tight sm:text-4xl md:text-[2.6rem]",
             align === "center" && "mx-auto max-w-3xl",
+            onDark ? "text-white" : "text-navy",
             titleClassName
           )}
         >
@@ -52,8 +64,9 @@ export function SectionHeading({
         <Reveal delay={0.1}>
           <p
             className={cn(
-              "text-pretty text-base leading-relaxed text-muted-foreground sm:text-[1.05rem]",
-              align === "center" ? "max-w-2xl" : "max-w-xl"
+              "text-pretty text-base leading-relaxed sm:text-[1.05rem]",
+              align === "center" ? "max-w-2xl" : "max-w-xl",
+              onDark ? "text-white/70" : "text-muted-foreground"
             )}
           >
             {description}
