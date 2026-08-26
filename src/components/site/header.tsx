@@ -6,17 +6,26 @@ import { Menu, X, Phone, CalendarCheck } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "@/components/brand/logo";
 import { CtaPrimary } from "@/components/site/cta";
-import { NAV_LINKS, SITE } from "@/lib/site";
+import { LanguageSwitcher } from "@/components/site/language-switcher";
+import { useI18n } from "@/lib/i18n/context";
+import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
+const NAV_KEYS = [
+  { key: "nav.home", href: "/#home" },
+  { key: "nav.services", href: "/#services" },
+  { key: "nav.about", href: "/#about" },
+  { key: "nav.work", href: "/#work" },
+  { key: "nav.contact", href: "/#contact" },
+];
+
 export function Header() {
+  const { t } = useI18n();
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
   const [active, setActive] = React.useState<string>("#home");
 
   React.useEffect(() => {
-    // Use a slightly larger threshold so the big logo stays until the user
-    // actually starts scrolling into the page.
     const onScroll = () => setScrolled(window.scrollY > 40);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
@@ -24,7 +33,7 @@ export function Header() {
   }, []);
 
   React.useEffect(() => {
-    const ids = NAV_LINKS.map((l) => l.href.replace("#", ""));
+    const ids = ["home", "services", "about", "work", "contact"];
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
@@ -47,6 +56,8 @@ export function Header() {
     };
   }, [open]);
 
+  const navLinks = NAV_KEYS.map((n) => ({ ...n, label: t(n.key) }));
+
   return (
     <>
       <header
@@ -63,7 +74,7 @@ export function Header() {
         >
           {/* Logo — large & natural when static, shrinks on scroll */}
           <Link
-            href="#home"
+            href="/#home"
             aria-label="VA Home Cleaners — home"
             className="transition-all duration-300"
           >
@@ -72,19 +83,19 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
-            {NAV_LINKS.map((link) => (
+            {navLinks.map((link) => (
               <Link
                 key={link.href}
                 href={link.href}
                 className={cn(
                   "relative rounded-full px-4 py-2 text-sm font-semibold transition-colors",
-                  active === link.href
+                  active === link.href.replace("/", "")
                     ? "text-crimson"
                     : "text-navy/70 hover:text-navy"
                 )}
               >
                 {link.label}
-                {active === link.href ? (
+                {active === link.href.replace("/", "") ? (
                   <motion.span
                     layoutId="nav-active"
                     className="absolute inset-0 -z-10 rounded-full bg-crimson-soft"
@@ -97,6 +108,7 @@ export function Header() {
 
           {/* Desktop right CTAs */}
           <div className="hidden items-center gap-3 lg:flex">
+            <LanguageSwitcher />
             <a
               href={SITE.phoneHref}
               className="group inline-flex items-center gap-2 text-sm font-bold text-navy transition-colors hover:text-crimson"
@@ -107,20 +119,23 @@ export function Header() {
               {SITE.phone}
             </a>
             <CtaPrimary href="/book" size="md" icon={CalendarCheck}>
-              Book a Cleaning
+              {t("nav.book")}
             </CtaPrimary>
           </div>
 
-          {/* Mobile toggle */}
-          <button
-            type="button"
-            aria-label="Open menu"
-            aria-expanded={open}
-            onClick={() => setOpen(true)}
-            className="grid size-11 place-items-center rounded-xl border border-navy/10 bg-white/70 text-navy shadow-sm backdrop-blur transition-colors hover:border-crimson/40 hover:text-crimson lg:hidden"
-          >
-            <Menu className="size-5" />
-          </button>
+          {/* Mobile right side */}
+          <div className="flex items-center gap-2 lg:hidden">
+            <LanguageSwitcher variant="compact" />
+            <button
+              type="button"
+              aria-label="Open menu"
+              aria-expanded={open}
+              onClick={() => setOpen(true)}
+              className="grid size-11 place-items-center rounded-xl border border-navy/10 bg-white/70 text-navy shadow-sm backdrop-blur transition-colors hover:border-crimson/40 hover:text-crimson"
+            >
+              <Menu className="size-5" />
+            </button>
+          </div>
         </div>
       </header>
 
@@ -158,7 +173,7 @@ export function Header() {
               </div>
 
               <nav className="flex flex-col gap-1 px-4 py-6" aria-label="Mobile">
-                {NAV_LINKS.map((link, i) => (
+                {navLinks.map((link, i) => (
                   <motion.div
                     key={link.href}
                     initial={{ opacity: 0, x: 20 }}
@@ -191,13 +206,13 @@ export function Header() {
                   icon={CalendarCheck}
                   onClick={() => setOpen(false)}
                 >
-                  Book a Cleaning
+                  {t("nav.book")}
                 </CtaPrimary>
                 <p className="pt-1 text-center text-xs text-muted-foreground">
                   <span className="font-semibold text-[#9B7B0E]">
                     {SITE.tagline}
                   </span>{" "}
-                  — Call anytime.
+                  — {t("header.callAnytime")}.
                 </p>
               </div>
             </motion.div>

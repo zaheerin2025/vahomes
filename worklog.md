@@ -143,3 +143,40 @@ Stage Summary:
 - All 11 routes return HTTP 200 (home, 8 service pages, /book, /book?service=hourly)
 - ESLint clean, no console errors
 - Real uploaded client photos integrated into gallery + service detail pages
+
+---
+Task ID: 4
+Agent: main (Z.ai Code)
+Task: Redesign footer (logo perfect) + dual-language EN/ES system
+
+Work Log:
+- Footer redesign: placed the real VA Home Cleaners logo on a clean white rounded "brand card" panel inside the dark navy footer. This preserves all the logo's colors (red V, navy A, gold ring, purple bubbles, gold tagline) that would otherwise disappear on the navy background. Also added a 4th contact item (MapPin service area), tricolor top accent bar, dot pattern overlay, and made the layout cleaner.
+- Built complete i18n infrastructure (client-side, no route restructuring):
+  - src/lib/i18n/translations.ts: ~200 translation keys in EN + ES covering all UI strings (nav, hero, trust, services, featured, how-it-works, our-work, before/after, why-choose, testimonials, cta-banner, contact, footer, booking, service-detail, mobile-cta)
+  - src/lib/i18n/context.tsx: React Context provider with useI18n hook. Persists locale via cookie + localStorage. Auto-detects browser language. Updates <html lang> attribute.
+  - src/components/site/language-switcher.tsx: Two variants — "header" (globe icon + dropdown with EN/Español) and "compact" (inline EN|ES toggle for mobile)
+- Wrapped entire app in I18nProvider via layout.tsx
+- Added LanguageSwitcher to Header: dropdown variant on desktop (next to phone), compact variant on mobile (next to hamburger)
+- Translated ALL homepage sections: Hero, TrustStrip, Services (8 cards with bilingual names), FeaturedService, HowItWorks, OurWork (category labels + counts), BeforeAfter, WhyChooseUs (4 reasons + stats), Testimonials (bilingual quotes), CtaBanner, Contact (form labels + placeholders + service dropdown), Footer, MobileCtaBar
+- Created src/lib/services-es.ts with full Spanish translations for all 8 service detail pages (name, tagline, summary, description, bestFor, includes, process, benefits, FAQ)
+- Updated ServiceDetailPage component to use locale-aware content: picks Spanish content from services-es.ts when locale="es", English from services.ts otherwise. All UI labels (Overview, What's included, How It Works, FAQ, etc.) use translation keys.
+- Updated BookingForm: all 4 steps translated (service cards, frequency, home size, priority chips, date, contact form, trust badges, success screen). Priority areas list is bilingual (Cocina, Baños, Dormitorios... in Spanish).
+- Created BookHero client component for translatable /book page hero
+- Bilingual testimonials: each testimonial has en + es versions (name, service, quote)
+
+Stage Summary:
+- Footer: logo on white brand card — all colors perfectly visible on dark footer ✓
+- Dual-language EN/ES: fully functional across entire site ✓
+  - Language switcher in header (desktop dropdown + mobile compact toggle)
+  - Locale persists via cookie + localStorage, auto-detected on first visit
+  - All homepage sections, service detail pages, booking flow, and footer translated
+  - HTML lang attribute updates dynamically
+- Verified via Agent Browser + VLM:
+  - EN footer: logo on white card, 4 columns, Spanish tagline, all contact elements ✓
+  - ES hero: "Un Espacio Más Limpio. Una Mejor Forma de Vivir." + all Spanish nav/CTAs ✓
+  - ES service page: "Limpieza Profunda" + all sections in Spanish ✓
+  - ES booking: "Pongamos tu espacio a punto" + "Elige tu servicio" + "Continuar" ✓
+  - ES footer: "Enlaces Rápidos | Servicios | Contáctanos" ✓
+  - Mobile compact switcher: EN|ES toggle works ✓
+  - Switch back to EN: "Let's get your space looking its best" + lang="en" ✓
+- ESLint clean, all routes HTTP 200, no console errors

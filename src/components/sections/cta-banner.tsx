@@ -5,16 +5,17 @@ import { motion } from "framer-motion";
 import { Sparkles, Phone, CalendarCheck, ArrowRight } from "lucide-react";
 import { CtaPrimary, CtaSecondary } from "@/components/site/cta";
 import { Reveal } from "@/components/site/reveal";
+import { useI18n } from "@/lib/i18n/context";
 import { SITE } from "@/lib/site";
 
 export function CtaBanner() {
+  const { t } = useI18n();
+
   return (
     <section className="relative py-20 sm:py-24 lg:py-28">
       <div className="mx-auto w-full max-w-7xl px-5 sm:px-8 lg:px-10">
         <div className="relative overflow-hidden rounded-[2.5rem]">
-          {/* gradient bg — crimson to navy */}
           <div className="absolute inset-0 bg-gradient-to-br from-[#C62828] via-[#9B1C1C] to-[#1A237E]" />
-          {/* decorative pattern */}
           <div
             className="pointer-events-none absolute inset-0 opacity-[0.13]"
             style={{
@@ -23,13 +24,10 @@ export function CtaBanner() {
               backgroundSize: "32px 32px",
             }}
           />
-          {/* glows */}
           <div className="pointer-events-none absolute -right-16 -top-16 h-72 w-72 rounded-full bg-gold/20 blur-3xl" />
           <div className="pointer-events-none absolute -bottom-20 -left-10 h-72 w-72 rounded-full bg-purple/20 blur-3xl" />
-          {/* gold top accent */}
           <div className="absolute inset-x-0 top-0 h-1 bg-gradient-to-r from-[#D4AF37] via-[#F5C518] to-[#D4AF37]" />
 
-          {/* floating sparkles */}
           <motion.div
             aria-hidden
             animate={{ y: [0, -10, 0], rotate: [0, 8, 0] }}
@@ -51,36 +49,31 @@ export function CtaBanner() {
             <Reveal>
               <span className="inline-flex items-center gap-2 rounded-full border border-gold/30 bg-gold/10 px-4 py-1.5 text-[0.7rem] font-bold uppercase tracking-[0.18em] text-gold backdrop-blur">
                 <Sparkles className="size-3.5" />
-                Get Started Today
+                {t("ctabanner.eyebrow")}
               </span>
             </Reveal>
             <Reveal delay={0.05}>
               <h2 className="mx-auto mt-5 max-w-3xl font-heading text-balance text-3xl font-extrabold leading-[1.1] tracking-tight text-white sm:text-4xl lg:text-[3rem]">
-                Ready for a Cleaner Space?
+                {t("ctabanner.title")}
               </h2>
             </Reveal>
             <Reveal delay={0.1}>
               <p className="mx-auto mt-5 max-w-xl text-pretty text-base leading-relaxed text-white/85 sm:text-lg">
-                Let VA Home Cleaners take care of the cleaning while you focus
-                on what matters.
+                {t("ctabanner.description")}
               </p>
             </Reveal>
 
             <Reveal delay={0.15}>
               <div className="mt-9 flex flex-col items-center justify-center gap-3 sm:flex-row">
-                <CtaPrimary
-                  href="/book"
-                  icon={CalendarCheck}
-                  variant="gold"
-                >
-                  Book Your Cleaning
+                <CtaPrimary href="/book" icon={CalendarCheck} variant="gold">
+                  {t("ctabanner.cta")}
                 </CtaPrimary>
                 <CtaSecondary
                   href={SITE.phoneHref}
                   icon={Phone}
                   className="!border-white/30 !bg-white/10 !text-white hover:!bg-white hover:!text-crimson hover:!border-white"
                 >
-                  Call {SITE.phone}
+                  {t("ctabanner.callAnytime")} {SITE.phone}
                 </CtaSecondary>
               </div>
             </Reveal>
@@ -88,7 +81,7 @@ export function CtaBanner() {
             <Reveal delay={0.2}>
               <p className="mt-6 flex items-center justify-center gap-1.5 text-sm font-medium text-white/75">
                 <Phone className="size-3.5" />
-                Call anytime
+                {t("ctabanner.callAnytime")}
                 <ArrowRight className="size-3.5" />
                 {SITE.tagline}
               </p>

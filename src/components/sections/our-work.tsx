@@ -6,7 +6,8 @@ import { motion, AnimatePresence } from "framer-motion";
 import { X, ZoomIn, ArrowUpRight, Camera } from "lucide-react";
 import { SectionHeading, SectionShell } from "@/components/site/section-heading";
 import { Stagger, StaggerItem } from "@/components/site/reveal";
-import { PROJECTS, GALLERY_CATEGORIES, type Project } from "@/lib/site";
+import { useI18n } from "@/lib/i18n/context";
+import { PROJECTS, type Project } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const CATEGORY_COLORS: Record<string, string> = {
@@ -16,8 +17,16 @@ const CATEGORY_COLORS: Record<string, string> = {
 };
 
 export function OurWork() {
+  const { t } = useI18n();
   const [active, setActive] = React.useState<string>("All");
   const [lightbox, setLightbox] = React.useState<Project | null>(null);
+
+  const categories = [
+    { id: "All", label: t("work.all") },
+    { id: "Residential", label: t("work.residential") },
+    { id: "Airbnb", label: t("work.airbnb") },
+    { id: "Commercial", label: t("work.commercial") },
+  ];
 
   const filtered = React.useMemo(() => {
     if (active === "All") return PROJECTS;
@@ -27,49 +36,48 @@ export function OurWork() {
   return (
     <SectionShell id="work">
       <SectionHeading
-        eyebrow="Our Work"
+        eyebrow={t("work.eyebrow")}
         title={
           <>
-            See the Difference{" "}
+            {t("work.title1")}
             <span className="bg-gradient-to-r from-[#C62828] to-[#6A1B9A] bg-clip-text text-transparent">
-              We Make
+              {t("work.title2")}
             </span>
           </>
         }
-        description="Real results from real cleans — featuring our team in action and the sparkling spaces we leave behind."
+        description={t("work.description")}
       />
 
-      {/* Category filter */}
       <div className="mt-10 flex flex-wrap items-center justify-center gap-2.5">
-        {GALLERY_CATEGORIES.map((cat) => {
+        {categories.map((cat) => {
           const count =
-            cat === "All"
+            cat.id === "All"
               ? PROJECTS.length
-              : PROJECTS.filter((p) => p.category === cat).length;
+              : PROJECTS.filter((p) => p.category === cat.id).length;
           return (
             <button
-              key={cat}
+              key={cat.id}
               type="button"
-              onClick={() => setActive(cat)}
+              onClick={() => setActive(cat.id)}
               className={cn(
                 "relative rounded-full px-5 py-2.5 text-sm font-semibold transition-all",
-                active === cat
+                active === cat.id
                   ? "text-white"
                   : "border border-navy/10 bg-white text-navy/70 hover:border-crimson/30 hover:text-crimson"
               )}
             >
-              {active === cat ? (
+              {active === cat.id ? (
                 <motion.span
                   layoutId="gallery-active"
                   className="absolute inset-0 -z-10 rounded-full bg-gradient-to-r from-[#1A237E] to-[#0D1642] shadow-md"
                   transition={{ type: "spring", stiffness: 380, damping: 30 }}
                 />
               ) : null}
-              {cat}
+              {cat.label}
               <span
                 className={cn(
                   "ml-2 rounded-full px-1.5 py-0.5 text-[0.65rem] font-bold",
-                  active === cat ? "bg-white/20" : "bg-navy/5 text-muted-foreground"
+                  active === cat.id ? "bg-white/20" : "bg-navy/5 text-muted-foreground"
                 )}
               >
                 {count}
@@ -79,7 +87,6 @@ export function OurWork() {
         })}
       </div>
 
-      {/* Uniform grid — featured cards span 2 cols on larger screens for visual rhythm */}
       <motion.div layout className="mt-10 grid grid-cols-2 gap-4 sm:gap-5 lg:grid-cols-4 lg:gap-6">
         <AnimatePresence mode="popLayout">
           {filtered.map((project) => (
@@ -111,23 +118,21 @@ export function OurWork() {
                   className="object-cover transition-transform duration-[800ms] ease-out group-hover:scale-110"
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-navy/90 via-navy/15 to-transparent opacity-90 transition-opacity duration-500 group-hover:opacity-100" />
-
-                {/* category chip */}
                 <span
                   className={cn(
                     "absolute left-3 top-3 rounded-full px-2.5 py-1 text-[0.6rem] font-bold uppercase tracking-wider shadow-sm backdrop-blur sm:left-4 sm:top-4 sm:px-3 sm:py-1",
                     CATEGORY_COLORS[project.category] ?? "bg-white/95 text-navy"
                   )}
                 >
-                  {project.category}
+                  {project.category === "Residential"
+                    ? t("work.residential")
+                    : project.category === "Airbnb"
+                    ? t("work.airbnb")
+                    : t("work.commercial")}
                 </span>
-
-                {/* zoom icon */}
                 <span className="absolute right-3 top-3 grid size-8 translate-y-1 place-items-center rounded-full bg-white/90 text-navy opacity-0 shadow transition-all duration-500 group-hover:translate-y-0 group-hover:opacity-100 sm:right-4 sm:top-4 sm:size-9">
                   <ZoomIn className="size-4" />
                 </span>
-
-                {/* caption */}
                 <div className="absolute inset-x-0 bottom-0 p-3 sm:p-5">
                   <p className="text-[0.6rem] font-semibold uppercase tracking-wider text-gold sm:text-[0.65rem]">
                     {project.service}
@@ -143,12 +148,11 @@ export function OurWork() {
         </AnimatePresence>
       </motion.div>
 
-      {/* Footer note */}
       <Stagger className="mt-10 flex flex-col items-center gap-3 text-center">
         <StaggerItem>
           <p className="flex items-center gap-2 text-sm text-muted-foreground">
             <Camera className="size-4 text-gold" />
-            Real photos from our team — actual results we&apos;re proud of.
+            {t("work.realPhotos")}
           </p>
         </StaggerItem>
       </Stagger>
@@ -198,20 +202,22 @@ export function OurWork() {
                       CATEGORY_COLORS[lightbox.category] ?? "bg-gold-soft text-[#9B7B0E]"
                     )}
                   >
-                    {lightbox.category}
+                    {lightbox.category === "Residential"
+                      ? t("work.residential")
+                      : lightbox.category === "Airbnb"
+                      ? t("work.airbnb")
+                      : t("work.commercial")}
                   </span>
                   <h3 className="mt-2 font-heading text-xl font-bold text-navy">
                     {lightbox.title}
                   </h3>
-                  <p className="text-sm text-muted-foreground">
-                    {lightbox.service}
-                  </p>
+                  <p className="text-sm text-muted-foreground">{lightbox.service}</p>
                 </div>
                 <a
                   href="/book"
                   className="inline-flex items-center gap-2 rounded-full bg-gradient-to-br from-[#E53935] to-[#C62828] px-5 py-2.5 text-sm font-semibold text-white shadow-md transition-transform hover:-translate-y-0.5"
                 >
-                  Book Similar
+                  {t("nav.book")}
                   <ArrowUpRight className="size-4" />
                 </a>
               </div>

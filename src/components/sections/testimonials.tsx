@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { Star, Quote, ChevronLeft, ChevronRight } from "lucide-react";
 import { SectionHeading, SectionShell } from "@/components/site/section-heading";
 import { Reveal } from "@/components/site/reveal";
-import { TESTIMONIALS } from "@/lib/site";
+import { useI18n } from "@/lib/i18n/context";
 import { cn } from "@/lib/utils";
 
 const AVATAR_COLORS = [
@@ -15,42 +15,58 @@ const AVATAR_COLORS = [
   "from-[#D4AF37] to-[#9B7B0E]",
 ];
 
+// Testimonials are bilingual to keep them authentic
+const TESTIMONIALS = [
+  {
+    en: { name: "Jessica M.", service: "Deep House Cleaning", quote: "The team was punctual, friendly, and incredibly thorough. My kitchen has never looked this clean — every surface sparkled." },
+    es: { name: "Jessica M.", service: "Limpieza Profunda", quote: "El equipo fue puntual, amable y muy meticuloso. Mi cocina nunca había estado tan limpia — cada superficie brillaba." },
+  },
+  {
+    en: { name: "Daniel R.", service: "Recurring Cleaning", quote: "Reliable and consistent every single visit. Having a recurring cleaning service has genuinely made my home feel more relaxing." },
+    es: { name: "Daniel R.", service: "Limpieza Recurrente", quote: "Confiable y consistente en cada visita. Tener un servicio de limpieza recurrente realmente ha hecho que mi hogar se sienta más relajante." },
+  },
+  {
+    en: { name: "Priya S.", service: "Airbnb Cleaning", quote: "They handle the turnover for my Airbnb between guests and the place always looks spotless. My guests constantly leave five-star reviews." },
+    es: { name: "Priya S.", service: "Limpieza Airbnb", quote: "Manejan el cambio de huéspedes en mi Airbnb y el lugar siempre se ve impecable. Mis huéspedes constantemente dejan reseñas de cinco estrellas." },
+  },
+  {
+    en: { name: "Marcus T.", service: "Commercial Cleaning", quote: "Professional, efficient, and detail-oriented. The office feels fresher and more welcoming for the whole team since we started working with them." },
+    es: { name: "Marcus T.", service: "Limpieza Comercial", quote: "Profesionales, eficientes y orientados al detalle. La oficina se siente más fresca y acogedora para todo el equipo desde que empezamos a trabajar con ellos." },
+  },
+];
+
+function initials(name: string): string {
+  return name.split(" ").map((n) => n[0]).join("").slice(0, 2).toUpperCase();
+}
+
 export function Testimonials() {
+  const { t, locale } = useI18n();
   const [index, setIndex] = React.useState(0);
   const [paused, setPaused] = React.useState(false);
   const count = TESTIMONIALS.length;
 
   React.useEffect(() => {
     if (paused) return;
-    const t = setInterval(() => {
-      setIndex((i) => (i + 1) % count);
-    }, 5000);
-    return () => clearInterval(t);
+    const interval = setInterval(() => setIndex((i) => (i + 1) % count), 5000);
+    return () => clearInterval(interval);
   }, [paused, count]);
 
-  const active = TESTIMONIALS[index];
+  const active = TESTIMONIALS[index][locale];
 
   return (
     <SectionShell className="relative overflow-hidden bg-gradient-to-br from-[#1A237E] via-[#15195F] to-[#0D1642]">
-      {/* decorative */}
       <div className="pointer-events-none absolute -left-20 top-10 h-72 w-72 rounded-full bg-gold/15 blur-3xl" />
       <div className="pointer-events-none absolute -right-20 bottom-10 h-72 w-72 rounded-full bg-crimson/12 blur-3xl" />
-      {/* gold top accent */}
       <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
 
       <div className="relative">
         <SectionHeading
-          eyebrow="Testimonials"
-          title={<span className="text-white">What Our Customers Say</span>}
-          description={
-            <span className="text-white/65">
-              Real feedback from the people and businesses we keep clean.
-            </span>
-          }
+          eyebrow={t("test.eyebrow")}
+          title={<span className="text-white">{t("test.title")}</span>}
+          description={<span className="text-white/65">{t("test.description")}</span>}
           onDark
         />
 
-        {/* Featured carousel */}
         <div
           className="relative mx-auto mt-14 max-w-3xl"
           onMouseEnter={() => setPaused(true)}
@@ -68,7 +84,7 @@ export function Testimonials() {
                 className="relative"
               >
                 <div className="flex items-center gap-1 text-gold">
-                  {Array.from({ length: active.rating }).map((_, i) => (
+                  {Array.from({ length: 5 }).map((_, i) => (
                     <Star key={i} className="size-5 fill-current" />
                   ))}
                 </div>
@@ -82,7 +98,7 @@ export function Testimonials() {
                       AVATAR_COLORS[index % AVATAR_COLORS.length]
                     )}
                   >
-                    {active.initials}
+                    {initials(active.name)}
                   </span>
                   <div>
                     <p className="font-bold text-white">{active.name}</p>
@@ -93,11 +109,10 @@ export function Testimonials() {
             </AnimatePresence>
           </div>
 
-          {/* Controls */}
           <div className="mt-6 flex items-center justify-center gap-3">
             <button
               type="button"
-              aria-label="Previous review"
+              aria-label="Previous"
               onClick={() => setIndex((i) => (i - 1 + count) % count)}
               className="grid size-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-gold hover:bg-gold hover:text-navy"
             >
@@ -108,7 +123,7 @@ export function Testimonials() {
                 <button
                   key={i}
                   type="button"
-                  aria-label={`Go to review ${i + 1}`}
+                  aria-label={`Review ${i + 1}`}
                   onClick={() => setIndex(i)}
                   className={cn(
                     "h-2 rounded-full transition-all duration-300",
@@ -119,7 +134,7 @@ export function Testimonials() {
             </div>
             <button
               type="button"
-              aria-label="Next review"
+              aria-label="Next"
               onClick={() => setIndex((i) => (i + 1) % count)}
               className="grid size-10 place-items-center rounded-full border border-white/15 bg-white/5 text-white transition-colors hover:border-gold hover:bg-gold hover:text-navy"
             >
@@ -130,8 +145,7 @@ export function Testimonials() {
 
         <Reveal delay={0.1}>
           <p className="mt-10 text-center text-xs text-white/40">
-            Sample reviews shown for demonstration. Real customer reviews will
-            replace these as they become available.
+            {t("test.disclaimer")}
           </p>
         </Reveal>
       </div>

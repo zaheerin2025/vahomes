@@ -13,15 +13,18 @@ import {
   CheckCircle2,
 } from "lucide-react";
 import { CtaPrimary, CtaSecondary } from "@/components/site/cta";
+import { useI18n } from "@/lib/i18n/context";
 import { SITE } from "@/lib/site";
 
-const trustChips = [
-  { icon: ShieldCheck, label: "Reliable Service" },
-  { icon: Sparkles, label: "Detailed Cleaning" },
-  { icon: CheckCircle2, label: "Residential & Commercial" },
-];
-
 export function Hero() {
+  const { t } = useI18n();
+
+  const trustChips = [
+    { icon: ShieldCheck, label: t("hero.trustReliable") },
+    { icon: Sparkles, label: t("hero.trustDetailed") },
+    { icon: CheckCircle2, label: t("hero.trustBoth") },
+  ];
+
   return (
     <section id="home" className="relative overflow-hidden pt-32 sm:pt-36 lg:pt-40">
       {/* Background decorations */}
@@ -54,7 +57,7 @@ export function Hero() {
               <span className="absolute inline-flex h-full w-full animate-ping rounded-full bg-crimson opacity-60" />
               <span className="relative inline-flex size-2 rounded-full bg-crimson" />
             </span>
-            Professional Home &amp; Commercial Cleaning
+            {t("hero.eyebrow")}
           </motion.span>
 
           <motion.h1
@@ -63,11 +66,11 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.08 }}
             className="mt-5 font-heading text-balance text-4xl font-extrabold leading-[1.05] tracking-tight text-navy sm:text-5xl lg:text-[3.7rem]"
           >
-            A Cleaner Space.
+            {t("hero.title1")}
             <br />
             <span className="relative inline-block">
               <span className="relative z-10 bg-gradient-to-r from-[#1A237E] via-[#C62828] to-[#6A1B9A] bg-clip-text text-transparent">
-                A Better Way to Live.
+                {t("hero.title2")}
               </span>
               <svg
                 className="absolute -bottom-2 left-0 z-0 w-full"
@@ -96,7 +99,7 @@ export function Hero() {
           >
             <Sparkles className="size-4" />
             {SITE.tagline}
-            <span className="text-muted-foreground">— {SITE.taglineEn}</span>
+            <span className="text-muted-foreground">— {t("hero.taglineEn")}</span>
           </motion.p>
 
           <motion.p
@@ -105,9 +108,7 @@ export function Hero() {
             transition={{ duration: 0.6, delay: 0.2 }}
             className="mt-4 max-w-xl text-pretty text-base leading-relaxed text-muted-foreground sm:text-lg"
           >
-            From deep home cleaning to recurring maintenance and commercial
-            spaces, VA Home Cleaners delivers reliable, detailed cleaning
-            services designed around your needs.
+            {t("hero.description")}
           </motion.p>
 
           <motion.div
@@ -117,10 +118,11 @@ export function Hero() {
             className="mt-8 flex flex-col gap-3 sm:flex-row sm:items-center"
           >
             <CtaPrimary href="/book" icon={CalendarCheck}>
-              Book a Cleaning
+              {t("hero.ctaBook")}
             </CtaPrimary>
             <CtaSecondary href={SITE.phoneHref} icon={Phone}>
-              Call {SITE.phone}
+              {t("hero.ctaBook") === "Reservar Limpieza" ? "Llamar " : "Call "}
+              {SITE.phone}
             </CtaSecondary>
           </motion.div>
 
@@ -151,7 +153,6 @@ export function Hero() {
           transition={{ duration: 0.7, delay: 0.2, ease: [0.22, 1, 0.36, 1] }}
           className="relative"
         >
-          {/* decorative ring behind */}
           <div className="absolute -right-6 -top-6 -z-10 h-32 w-32 rounded-full border-2 border-dashed border-gold/40" />
           <div className="absolute -bottom-8 -left-8 -z-10 h-40 w-40 rounded-full bg-purple-soft/60 blur-2xl" />
 
@@ -159,7 +160,7 @@ export function Hero() {
             <div className="relative aspect-[4/5] w-full sm:aspect-[5/5] lg:aspect-[4/4.4]">
               <Image
                 src="/images/hero.png"
-                alt="Professional cleaner wiping a sparkling modern kitchen counter in a bright luxury home"
+                alt={t("hero.eyebrow")}
                 fill
                 priority
                 sizes="(max-width: 1024px) 100vw, 50vw"
@@ -183,10 +184,10 @@ export function Hero() {
                 ))}
               </div>
               <p className="mt-1 text-xs font-semibold text-navy">
-                Loved by local homes
+                {t("hero.ratingLoved")}
               </p>
               <p className="text-[0.65rem] text-muted-foreground">
-                Trusted cleaning service
+                {t("hero.ratingTrusted")}
               </p>
             </div>
           </motion.div>
@@ -202,9 +203,9 @@ export function Hero() {
               <Leaf className="size-5" />
             </span>
             <div className="leading-tight">
-              <p className="text-sm font-bold text-navy">Eco-Friendly</p>
+              <p className="text-sm font-bold text-navy">{t("hero.ecoTitle")}</p>
               <p className="text-[0.65rem] text-muted-foreground">
-                Green cleaning on request
+                {t("hero.ecoSub")}
               </p>
             </div>
           </motion.div>

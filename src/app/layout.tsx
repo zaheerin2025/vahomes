@@ -2,6 +2,7 @@ import type { Metadata } from "next";
 import { Inter, Playfair_Display } from "next/font/google";
 import "./globals.css";
 import { Toaster } from "@/components/ui/toaster";
+import { I18nProvider } from "@/lib/i18n/context";
 
 const inter = Inter({
   variable: "--font-inter",
@@ -32,6 +33,7 @@ export const metadata: Metadata = {
     "eco-friendly cleaning",
     "VA Home Cleaners",
     "limpieza que transforma",
+    "limpieza profesional",
   ],
   authors: [{ name: "VA Home Cleaners" }],
   icons: {
@@ -62,7 +64,7 @@ export default function RootLayout({
       <body
         className={`${inter.variable} ${playfair.variable} font-sans antialiased bg-background text-foreground`}
       >
-        {children}
+        <I18nProvider>{children}</I18nProvider>
         <Toaster />
       </body>
     </html>

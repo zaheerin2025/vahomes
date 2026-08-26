@@ -3,15 +3,15 @@
 import * as React from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Phone, CalendarCheck } from "lucide-react";
+import { useI18n } from "@/lib/i18n/context";
 import { SITE } from "@/lib/site";
 
 export function MobileCtaBar() {
+  const { t } = useI18n();
   const [visible, setVisible] = React.useState(false);
 
   React.useEffect(() => {
-    const onScroll = () => {
-      setVisible(window.scrollY > 600);
-    };
+    const onScroll = () => setVisible(window.scrollY > 600);
     onScroll();
     window.addEventListener("scroll", onScroll, { passive: true });
     return () => window.removeEventListener("scroll", onScroll);
@@ -35,14 +35,14 @@ export function MobileCtaBar() {
                 className="flex flex-1 items-center justify-center gap-2 rounded-full border-2 border-navy/15 bg-white py-3 text-sm font-bold text-navy transition-colors hover:border-[#1A237E] hover:bg-navy hover:text-white"
               >
                 <Phone className="size-4" />
-                Call Now
+                {t("mobile.callNow")}
               </a>
               <a
                 href="/book"
                 className="flex flex-1 items-center justify-center gap-2 rounded-full bg-gradient-to-br from-[#E53935] to-[#C62828] py-3 text-sm font-bold text-white shadow-md transition-transform active:scale-[0.98]"
               >
                 <CalendarCheck className="size-4" />
-                Book Cleaning
+                {t("mobile.bookCleaning")}
               </a>
             </div>
           </div>
