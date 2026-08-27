@@ -147,7 +147,7 @@ export const PROJECTS: Project[] = [
     service: "Residential Service",
     image: "/images/work-4.jpg",
   },
-  // AI-generated supporting images
+  // Featured project showcase images
   {
     id: "airbnb",
     title: "Airbnb Deep Cleaning",
