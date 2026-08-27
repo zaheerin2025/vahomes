@@ -180,3 +180,50 @@ Stage Summary:
   - Mobile compact switcher: EN|ES toggle works ✓
   - Switch back to EN: "Let's get your space looking its best" + lang="en" ✓
 - ESLint clean, all routes HTTP 200, no console errors
+
+---
+Task ID: 5
+Agent: main (Z.ai Code)
+Task: Add professional, responsive, modern services dropdown menu (mega-menu on desktop, accordion on mobile)
+
+Work Log:
+- Added ~30 new translation keys (EN + ES) to translations.ts:
+  - Category names: nav.servicesResidential/Commercial/Specialty
+  - Mega-menu UI: nav.viewAllServices, nav.featuredOffer, nav.featuredHourlyTitle/Desc/Cta, nav.dropdownExplore/Sub
+  - Short taglines for all 8 services: serviceTagline.deep/regular/light/weekly/postConstruction/commercial/eco/hourly
+- Created ServicesMegaMenu component (services-mega-menu.tsx):
+  - Desktop mega-menu panel (max 960px wide, centered under nav)
+  - 4-column grid: 3 category columns (Residential=4 services, Commercial=2, Specialty=2) + 1 featured offer column
+  - Each service: colored gradient icon badge, bold name, short tagline, popular star badge
+  - Featured offer: dark navy panel with hourly cleaning image, "$50/hr" price highlight, gold "Book Hourly" CTA button, gold accent line
+  - Bottom bar: "Tap any service for full details" hint + "View all services" link
+  - Tricolor top accent bar (navy → crimson → gold)
+  - Arrow pointer connecting to nav
+  - Animated entrance/exit via framer-motion (opacity + y translate)
+  - ServicesNavTrigger button with animated chevron rotation
+- Created mobile accordion in header mobile drawer:
+  - "Services" button with count badge (8) and chevron
+  - Expandable section with 3 categorized groups
+  - Each service: colored dot indicator, name, arrow icon
+  - "View all services" button at bottom
+  - Smooth height animation via framer-motion AnimatePresence
+  - Open by default for better discoverability
+- Updated Header:
+  - Desktop: "Services" is now a hover-triggered mega-menu (with click toggle support + 120ms close delay for usability)
+  - The mega-menu wrapper handles onMouseEnter/onMouseLeave with timer-based delay
+  - Mobile: Services is an expandable accordion in the scrollable drawer area
+  - Drawer now has scrollable nav area (scroll-area-custom) to accommodate all services + categories
+- Responsive breakpoints verified:
+  - Desktop (1024px+): mega-menu on hover
+  - Tablet/mobile (<1024px): hamburger menu with accordion
+
+Stage Summary:
+- Professional services mega-menu on desktop ✓ (3 categories + featured offer, 8 services, colored icons, gold CTA)
+- Responsive accordion on mobile/tablet ✓ (categorized, expandable, count badge)
+- Bilingual EN/ES ✓ (all categories, service names, taglines, featured offer, UI labels translated)
+- Hover + click support on desktop ✓ (120ms close delay for usability)
+- Navigation verified: clicking a service in mega-menu navigates to /services/[slug] ✓
+- Navigation verified: clicking a service in mobile accordion navigates to /services/[slug] ✓
+- VLM confirmed: professional, modern, well-organized mega-menu ✓
+- VLM confirmed: Spanish mega-menu fully translated ✓
+- ESLint clean, all routes HTTP 200, no console errors

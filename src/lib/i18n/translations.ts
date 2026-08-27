@@ -29,6 +29,28 @@ export const translations: Record<Locale, Dict> = {
     "nav.contact": "Contact",
     "nav.book": "Book a Cleaning",
 
+    // ===== Services dropdown / mega-menu =====
+    "nav.servicesResidential": "Residential",
+    "nav.servicesCommercial": "Commercial",
+    "nav.servicesSpecialty": "Specialty",
+    "nav.viewAllServices": "View all services",
+    "nav.featuredOffer": "Featured Offer",
+    "nav.featuredHourlyTitle": "Cleaning by the Hour",
+    "nav.featuredHourlyDesc": "Flexible cleaning from just $50/hour. Choose your priorities, 2-hour minimum.",
+    "nav.featuredHourlyCta": "Book Hourly",
+    "nav.dropdownExplore": "Explore our cleaning services",
+    "nav.dropdownSub": "Tap any service for full details, pricing & FAQ",
+
+    // Short taglines for service cards/dropdown
+    "serviceTagline.deep": "The most detailed clean we offer",
+    "serviceTagline.regular": "Consistent freshness, week after week",
+    "serviceTagline.light": "A quick refresh for in-between visits",
+    "serviceTagline.weekly": "Dependable cleaning on your schedule",
+    "serviceTagline.postConstruction": "From renovation dust to ready-to-use",
+    "serviceTagline.commercial": "Professional spaces, professionally cleaned",
+    "serviceTagline.eco": "A greener approach to a spotless home",
+    "serviceTagline.hourly": "Flexible cleaning, priced by the hour",
+
     // ===== Header =====
     "header.callAnytime": "Call Anytime",
 
@@ -340,6 +362,28 @@ export const translations: Record<Locale, Dict> = {
     "nav.work": "Nuestro Trabajo",
     "nav.contact": "Contacto",
     "nav.book": "Reservar Limpieza",
+
+    // ===== Services dropdown / mega-menu =====
+    "nav.servicesResidential": "Residencial",
+    "nav.servicesCommercial": "Comercial",
+    "nav.servicesSpecialty": "Especial",
+    "nav.viewAllServices": "Ver todos los servicios",
+    "nav.featuredOffer": "Oferta Destacada",
+    "nav.featuredHourlyTitle": "Limpieza por Hora",
+    "nav.featuredHourlyDesc": "Limpieza flexible desde solo $50/hora. Elige tus prioridades, mínimo 2 horas.",
+    "nav.featuredHourlyCta": "Reservar por Hora",
+    "nav.dropdownExplore": "Explora nuestros servicios de limpieza",
+    "nav.dropdownSub": "Toca cualquier servicio para ver detalles, precios y preguntas frecuentes",
+
+    // Short taglines for service cards/dropdown
+    "serviceTagline.deep": "La limpieza más detallada que ofrecemos",
+    "serviceTagline.regular": "Frescura consistente, semana tras semana",
+    "serviceTagline.light": "Un refresco rápido entre visitas",
+    "serviceTagline.weekly": "Limpieza confiable en tu horario",
+    "serviceTagline.postConstruction": "Del polvo de obra a lista para usar",
+    "serviceTagline.commercial": "Espacios profesionales, limpios profesionalmente",
+    "serviceTagline.eco": "Un enfoque más ecológico para un hogar impecable",
+    "serviceTagline.hourly": "Limpieza flexible, precio por hora",
 
     // ===== Header =====
     "header.callAnytime": "Llama cuando quieras",

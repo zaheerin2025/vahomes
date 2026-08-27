@@ -2,28 +2,68 @@
 
 import * as React from "react";
 import Link from "next/link";
-import { Menu, X, Phone, CalendarCheck } from "lucide-react";
+import { Menu, X, Phone, CalendarCheck, ChevronDown, ArrowRight } from "lucide-react";
 import { motion, AnimatePresence } from "framer-motion";
 import { Logo } from "@/components/brand/logo";
 import { CtaPrimary } from "@/components/site/cta";
 import { LanguageSwitcher } from "@/components/site/language-switcher";
+import { ServicesMegaMenu, ServicesNavTrigger } from "@/components/site/services-mega-menu";
 import { useI18n } from "@/lib/i18n/context";
+import { SERVICE_DETAILS } from "@/lib/services";
 import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const NAV_KEYS = [
   { key: "nav.home", href: "/#home" },
-  { key: "nav.services", href: "/#services" },
   { key: "nav.about", href: "/#about" },
   { key: "nav.work", href: "/#work" },
   { key: "nav.contact", href: "/#contact" },
+];
+
+const SERVICE_NAME_KEY: Record<string, string> = {
+  "regular-cleaning": "services.regular",
+  "light-cleaning": "services.light",
+  "deep-cleaning": "services.deep",
+  "weekly-biweekly": "services.weekly",
+  "post-construction": "services.postConstruction",
+  commercial: "services.commercial",
+  "eco-friendly": "services.eco",
+  hourly: "services.hourly",
+};
+
+const MOBILE_CATEGORIES = [
+  {
+    labelKey: "nav.servicesResidential",
+    slugs: ["deep-cleaning", "regular-cleaning", "light-cleaning", "weekly-biweekly"],
+  },
+  {
+    labelKey: "nav.servicesCommercial",
+    slugs: ["commercial", "post-construction"],
+  },
+  {
+    labelKey: "nav.servicesSpecialty",
+    slugs: ["eco-friendly", "hourly"],
+  },
 ];
 
 export function Header() {
   const { t } = useI18n();
   const [scrolled, setScrolled] = React.useState(false);
   const [open, setOpen] = React.useState(false);
+  const [mobileServicesOpen, setMobileServicesOpen] = React.useState(true);
+  const [servicesOpen, setServicesOpen] = React.useState(false);
   const [active, setActive] = React.useState<string>("#home");
+
+  // hover delay handling for the services mega-menu
+  const closeTimer = React.useRef<ReturnType<typeof setTimeout> | null>(null);
+  const openServices = React.useCallback(() => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    setServicesOpen(true);
+  }, []);
+  const closeServices = React.useCallback((delay = 120) => {
+    if (closeTimer.current) clearTimeout(closeTimer.current);
+    closeTimer.current = setTimeout(() => setServicesOpen(false), delay);
+  }, []);
 
   React.useEffect(() => {
     const onScroll = () => setScrolled(window.scrollY > 40);
@@ -83,6 +123,38 @@ export function Header() {
 
           {/* Desktop nav */}
           <nav className="hidden items-center gap-1 lg:flex" aria-label="Primary">
+            <Link
+              href="/#home"
+              className={cn(
+                "relative rounded-full px-4 py-2 text-sm font-semibold transition-colors",
+                active === "#home" ? "text-crimson" : "text-navy/70 hover:text-navy"
+              )}
+            >
+              {t("nav.home")}
+              {active === "#home" ? (
+                <motion.span
+                  layoutId="nav-active"
+                  className="absolute inset-0 -z-10 rounded-full bg-crimson-soft"
+                  transition={{ type: "spring", stiffness: 380, damping: 30 }}
+                />
+              ) : null}
+            </Link>
+
+            {/* Services dropdown trigger */}
+            <div
+              className="relative"
+              onMouseEnter={openServices}
+              onMouseLeave={() => closeServices()}
+            >
+              <ServicesNavTrigger
+                isActive={active === "#services"}
+                isOpen={servicesOpen}
+                onClick={() => (servicesOpen ? closeServices(0) : openServices())}
+                label={t("nav.services")}
+              />
+              <ServicesMegaMenu isOpen={servicesOpen} onClose={() => closeServices(0)} />
+            </div>
+
             {navLinks.map((link) => (
               <Link
                 key={link.href}
@@ -158,7 +230,7 @@ export function Header() {
               animate={{ x: 0 }}
               exit={{ x: "100%" }}
               transition={{ type: "spring", stiffness: 320, damping: 34 }}
-              className="absolute right-0 top-0 flex h-full w-[84%] max-w-sm flex-col bg-white shadow-2xl"
+              className="absolute right-0 top-0 flex h-full w-[88%] max-w-md flex-col bg-white shadow-2xl"
             >
               <div className="flex items-center justify-between border-b border-navy/5 px-5 py-4">
                 <Logo height={52} />
@@ -172,27 +244,132 @@ export function Header() {
                 </button>
               </div>
 
-              <nav className="flex flex-col gap-1 px-4 py-6" aria-label="Mobile">
-                {navLinks.map((link, i) => (
-                  <motion.div
-                    key={link.href}
-                    initial={{ opacity: 0, x: 20 }}
-                    animate={{ opacity: 1, x: 0 }}
-                    transition={{ delay: 0.05 + i * 0.05 }}
-                  >
-                    <Link
-                      href={link.href}
-                      onClick={() => setOpen(false)}
-                      className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-navy transition-colors hover:bg-crimson-soft hover:text-crimson"
-                    >
-                      {link.label}
-                      <span className="text-crimson/40">→</span>
-                    </Link>
-                  </motion.div>
-                ))}
-              </nav>
+              {/* Scrollable nav area */}
+              <div className="scroll-area-custom flex-1 overflow-y-auto px-4 py-5">
+                {/* Home link */}
+                <MobileNavLink
+                  href="/#home"
+                  label={t("nav.home")}
+                  onClick={() => setOpen(false)}
+                  delay={0.05}
+                />
 
-              <div className="mt-auto space-y-3 border-t border-navy/5 px-5 py-6">
+                {/* Services accordion */}
+                <motion.div
+                  initial={{ opacity: 0, x: 20 }}
+                  animate={{ opacity: 1, x: 0 }}
+                  transition={{ delay: 0.1 }}
+                  className="overflow-hidden rounded-2xl"
+                >
+                  <button
+                    type="button"
+                    onClick={() => setMobileServicesOpen((o) => !o)}
+                    aria-expanded={mobileServicesOpen}
+                    className="flex w-full items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-navy transition-colors hover:bg-crimson-soft/50"
+                  >
+                    <span className="flex items-center gap-2">
+                      {t("nav.services")}
+                      <span className="rounded-full bg-gold/20 px-2 py-0.5 text-[0.6rem] font-bold text-[#9B7B0E]">
+                        {SERVICE_DETAILS.length}
+                      </span>
+                    </span>
+                    <ChevronDown
+                      className={cn(
+                        "size-5 text-crimson/40 transition-transform duration-300",
+                        mobileServicesOpen ? "rotate-180" : ""
+                      )}
+                    />
+                  </button>
+
+                  <AnimatePresence initial={false}>
+                    {mobileServicesOpen ? (
+                      <motion.div
+                        initial={{ height: 0, opacity: 0 }}
+                        animate={{ height: "auto", opacity: 1 }}
+                        exit={{ height: 0, opacity: 0 }}
+                        transition={{ duration: 0.3, ease: [0.22, 1, 0.36, 1] }}
+                        className="overflow-hidden"
+                      >
+                        <div className="space-y-4 px-3 pb-3 pt-1">
+                          {MOBILE_CATEGORIES.map((cat) => (
+                            <div key={cat.key}>
+                              <p className="mb-2 flex items-center gap-2 px-2 text-[0.62rem] font-bold uppercase tracking-[0.16em] text-[#9B7B0E]">
+                                <span className="size-1.5 rounded-full bg-gold" />
+                                {t(cat.labelKey)}
+                              </p>
+                              <div className="flex flex-col gap-1">
+                                {cat.slugs.map((slug) => {
+                                  const svc = SERVICE_DETAILS.find((s) => s.slug === slug);
+                                  if (!svc) return null;
+                                  const name = t(SERVICE_NAME_KEY[slug] ?? "services.deep");
+                                  return (
+                                    <Link
+                                      key={slug}
+                                      href={`/services/${slug}`}
+                                      onClick={() => setOpen(false)}
+                                      className="group flex items-center gap-2.5 rounded-xl border border-navy/5 bg-white px-3 py-2.5 transition-all hover:border-crimson/30 hover:bg-crimson-soft/20"
+                                    >
+                                      <span
+                                        className={cn(
+                                          "size-1.5 rounded-full bg-gradient-to-br",
+                                          svc.accent === "crimson"
+                                            ? "from-[#E53935] to-[#C62828]"
+                                            : svc.accent === "navy"
+                                            ? "from-[#1A237E] to-[#0D1642]"
+                                            : svc.accent === "purple"
+                                            ? "from-[#6A1B9A] to-[#4A148C]"
+                                            : "from-[#D4AF37] to-[#9B7B0E]"
+                                        )}
+                                      />
+                                      <span className="flex-1 text-sm font-semibold text-navy group-hover:text-crimson">
+                                        {name}
+                                      </span>
+                                      <ArrowRight className="size-3.5 text-muted-foreground transition-transform group-hover:translate-x-0.5 group-hover:text-crimson" />
+                                    </Link>
+                                  );
+                                })}
+                              </div>
+                            </div>
+                          ))}
+
+                          {/* View all link */}
+                          <Link
+                            href="/#services"
+                            onClick={() => setOpen(false)}
+                            className="mt-2 flex items-center justify-center gap-1.5 rounded-xl bg-navy px-4 py-3 text-sm font-bold text-white"
+                          >
+                            {t("nav.viewAllServices")}
+                            <ArrowRight className="size-4" />
+                          </Link>
+                        </div>
+                      </motion.div>
+                    ) : null}
+                  </AnimatePresence>
+                </motion.div>
+
+                {/* Remaining nav links */}
+                <MobileNavLink
+                  href="/#about"
+                  label={t("nav.about")}
+                  onClick={() => setOpen(false)}
+                  delay={0.15}
+                />
+                <MobileNavLink
+                  href="/#work"
+                  label={t("nav.work")}
+                  onClick={() => setOpen(false)}
+                  delay={0.2}
+                />
+                <MobileNavLink
+                  href="/#contact"
+                  label={t("nav.contact")}
+                  onClick={() => setOpen(false)}
+                  delay={0.25}
+                />
+              </div>
+
+              {/* Footer CTAs */}
+              <div className="space-y-3 border-t border-navy/5 px-5 py-5">
                 <a
                   href={SITE.phoneHref}
                   className="flex items-center justify-center gap-2.5 rounded-full border border-navy/10 bg-white py-3.5 font-bold text-navy transition-colors hover:border-crimson/40 hover:text-crimson"
@@ -220,5 +397,34 @@ export function Header() {
         ) : null}
       </AnimatePresence>
     </>
+  );
+}
+
+function MobileNavLink({
+  href,
+  label,
+  onClick,
+  delay,
+}: {
+  href: string;
+  label: string;
+  onClick: () => void;
+  delay: number;
+}) {
+  return (
+    <motion.div
+      initial={{ opacity: 0, x: 20 }}
+      animate={{ opacity: 1, x: 0 }}
+      transition={{ delay }}
+    >
+      <Link
+        href={href}
+        onClick={onClick}
+        className="flex items-center justify-between rounded-2xl px-4 py-3.5 text-lg font-semibold text-navy transition-colors hover:bg-crimson-soft hover:text-crimson"
+      >
+        {label}
+        <span className="text-crimson/40">→</span>
+      </Link>
+    </motion.div>
   );
 }
