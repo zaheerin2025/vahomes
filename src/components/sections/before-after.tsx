@@ -16,20 +16,22 @@ type Pair = {
   afterAltKey: string;
 };
 
+import { assetPath } from "@/lib/utils";
+
 const PAIRS: Pair[] = [
   {
     id: "living-room",
     labelKey: "ba.livingRoom",
-    before: "/images/before-living-room.png",
-    after: "/images/after-living-room.png",
+    before: assetPath("/images/before-living-room.png"),
+    after: assetPath("/images/after-living-room.png"),
     beforeAltKey: "ba.before",
     afterAltKey: "ba.after",
   },
   {
     id: "kitchen",
     labelKey: "ba.kitchen",
-    before: "/images/before-kitchen.png",
-    after: "/images/after-kitchen.png",
+    before: assetPath("/images/before-kitchen.png"),
+    after: assetPath("/images/after-kitchen.png"),
     beforeAltKey: "ba.before",
     afterAltKey: "ba.after",
   },

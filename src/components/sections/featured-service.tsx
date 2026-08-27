@@ -6,6 +6,7 @@ import { Sparkles, CheckCircle2, ArrowRight } from "lucide-react";
 import { CtaPrimary } from "@/components/site/cta";
 import { Reveal } from "@/components/site/reveal";
 import { useI18n } from "@/lib/i18n/context";
+import { assetPath } from "@/lib/utils";
 
 export function FeaturedService() {
   const { t } = useI18n();
@@ -38,7 +39,7 @@ export function FeaturedService() {
               <div className="relative overflow-hidden rounded-3xl shadow-2xl ring-1 ring-gold/15">
                 <div className="relative aspect-[4/3] w-full">
                   <Image
-                    src="/images/featured-deep-cleaning.png"
+                    src={assetPath("/images/featured-deep-cleaning.png")}
                     alt={t("featured.title")}
                     fill
                     sizes="(max-width: 1024px) 100vw, 50vw"

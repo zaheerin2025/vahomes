@@ -1,5 +1,5 @@
 import Image from "next/image";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 type LogoProps = {
   className?: string;
@@ -20,11 +20,10 @@ export function Logo({
   className,
   height = 40,
   onDark = false,
-  iconOnly = false,
 }: LogoProps) {
   return (
     <Image
-      src="/va-logo.png"
+      src={assetPath("/va-logo.png")}
       alt="VA Home Cleaners — Limpieza que transforma"
       width={800}
       height={438}
@@ -41,7 +40,7 @@ export function Logo({
 export function LogoCompact({ className, height = 34 }: { className?: string; height?: number }) {
   return (
     <Image
-      src="/va-logo.png"
+      src={assetPath("/va-logo.png")}
       alt="VA Home Cleaners"
       width={800}
       height={438}

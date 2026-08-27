@@ -15,6 +15,7 @@ import {
 import { CtaPrimary, CtaSecondary } from "@/components/site/cta";
 import { useI18n } from "@/lib/i18n/context";
 import { SITE } from "@/lib/site";
+import { assetPath } from "@/lib/utils";
 
 export function Hero() {
   const { t } = useI18n();
@@ -159,7 +160,7 @@ export function Hero() {
           <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_80px_-30px_rgba(13,22,66,0.4)] ring-1 ring-navy/5">
             <div className="relative aspect-[4/5] w-full sm:aspect-[5/5] lg:aspect-[4/4.4]">
               <Image
-                src="/images/hero.png"
+                src={assetPath("/images/hero.png")}
                 alt={t("hero.eyebrow")}
                 fill
                 priority

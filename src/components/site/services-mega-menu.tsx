@@ -19,7 +19,7 @@ import {
 } from "lucide-react";
 import { useI18n } from "@/lib/i18n/context";
 import { SERVICE_DETAILS } from "@/lib/services";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 
 const ICONS: Record<string, LucideIcon> = {
   Sparkles,
@@ -205,7 +205,7 @@ export function ServicesMegaMenu({
                     <div className="relative mt-3 overflow-hidden rounded-2xl ring-1 ring-white/10">
                       <div className="relative aspect-[16/10] w-full">
                         <Image
-                          src="/images/service-hourly.png"
+                          src={assetPath("/images/service-hourly.png")}
                           alt={t("nav.featuredHourlyTitle")}
                           fill
                           sizes="260px"

@@ -31,13 +31,15 @@ export type Service = {
   href: string;
 };
 
+import { assetPath } from "@/lib/utils";
+
 export const SERVICES: Service[] = [
   {
     id: "deep-cleaning",
     name: "Deep House Cleaning",
     description:
       "A detailed top-to-bottom cleaning for homes that need extra attention and care.",
-    image: "/images/service-deep-cleaning.png",
+    image: assetPath("/images/service-deep-cleaning.png"),
     icon: "Sparkles",
     href: "/services/deep-cleaning",
   },
@@ -46,7 +48,7 @@ export const SERVICES: Service[] = [
     name: "Regular Cleaning",
     description:
       "Perfect for keeping your home or office clean and tidy on a daily basis.",
-    image: "/images/service-recurring.png",
+    image: assetPath("/images/service-recurring.png"),
     icon: "CalendarClock",
     href: "/services/regular-cleaning",
   },
@@ -55,7 +57,7 @@ export const SERVICES: Service[] = [
     name: "Light Cleaning",
     description:
       "A quick and basic service, designed to refresh spaces without going too deep.",
-    image: "/images/service-hourly.png",
+    image: assetPath("/images/service-hourly.png"),
     icon: "Wind",
     href: "/services/light-cleaning",
   },
@@ -64,7 +66,7 @@ export const SERVICES: Service[] = [
     name: "Post-Construction Cleaning",
     description:
       "Remove dust, debris, and construction residue so your newly completed space is ready to use.",
-    image: "/images/service-post-construction.png",
+    image: assetPath("/images/service-post-construction.png"),
     icon: "HardHat",
     href: "/services/post-construction",
   },
@@ -73,7 +75,7 @@ export const SERVICES: Service[] = [
     name: "Office & Commercial Cleaning",
     description:
       "Professional cleaning solutions for offices, commercial spaces, and workplaces.",
-    image: "/images/service-commercial.png",
+    image: assetPath("/images/service-commercial.png"),
     icon: "Building2",
     href: "/services/commercial",
   },
@@ -82,7 +84,7 @@ export const SERVICES: Service[] = [
     name: "Eco-Friendly Cleaning",
     description:
       "Prefer a greener approach? Eco-friendly cleaning products are available upon request.",
-    image: "/images/service-eco-friendly.png",
+    image: assetPath("/images/service-eco-friendly.png"),
     icon: "Leaf",
     href: "/services/eco-friendly",
   },
@@ -91,7 +93,7 @@ export const SERVICES: Service[] = [
     name: "Cleaning by the Hour",
     description:
       "Flexible hourly cleaning for customers who need help with specific cleaning priorities.",
-    image: "/images/service-hourly.png",
+    image: assetPath("/images/service-hourly.png"),
     icon: "Clock",
     href: "/services/hourly",
   },
@@ -100,7 +102,7 @@ export const SERVICES: Service[] = [
     name: "Weekly & Bi-Weekly Cleaning",
     description:
       "Keep your home consistently fresh with recurring cleaning services scheduled around your needs.",
-    image: "/images/service-recurring.png",
+    image: assetPath("/images/service-recurring.png"),
     icon: "CalendarClock",
     href: "/services/weekly-biweekly",
   },
@@ -123,7 +125,7 @@ export const PROJECTS: Project[] = [
     title: "Kitchen Deep Cleaning",
     category: "Residential",
     service: "Residential Service",
-    image: "/images/work-1.jpg",
+    image: assetPath("/images/work-1.jpg"),
     featured: true,
   },
   {
@@ -131,21 +133,21 @@ export const PROJECTS: Project[] = [
     title: "Bedroom & Surfaces",
     category: "Residential",
     service: "Residential Service",
-    image: "/images/work-2.jpg",
+    image: assetPath("/images/work-2.jpg"),
   },
   {
     id: "living-fluff",
     title: "Living Room Refresh",
     category: "Residential",
     service: "Residential Service",
-    image: "/images/work-3.jpg",
+    image: assetPath("/images/work-3.jpg"),
   },
   {
     id: "move-out-detail",
     title: "Move-Out Detail Clean",
     category: "Residential",
     service: "Residential Service",
-    image: "/images/work-4.jpg",
+    image: assetPath("/images/work-4.jpg"),
   },
   // Featured project showcase images
   {
@@ -153,7 +155,7 @@ export const PROJECTS: Project[] = [
     title: "Airbnb Deep Cleaning",
     category: "Airbnb",
     service: "Airbnb Service",
-    image: "/images/gallery-airbnb.png",
+    image: assetPath("/images/gallery-airbnb.png"),
     featured: true,
   },
   {
@@ -161,21 +163,21 @@ export const PROJECTS: Project[] = [
     title: "Bathroom Cleaning",
     category: "Residential",
     service: "Residential Service",
-    image: "/images/gallery-bathroom.png",
+    image: assetPath("/images/gallery-bathroom.png"),
   },
   {
     id: "dining",
     title: "Dining Room Cleaning",
     category: "Residential",
     service: "Residential Service",
-    image: "/images/gallery-dining-room.png",
+    image: assetPath("/images/gallery-dining-room.png"),
   },
   {
     id: "office",
     title: "Commercial Cleaning",
     category: "Commercial",
     service: "Office Service",
-    image: "/images/gallery-office.png",
+    image: assetPath("/images/gallery-office.png"),
     featured: true,
   },
 ];

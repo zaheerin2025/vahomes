@@ -12,6 +12,7 @@ import {
 import { SectionShell } from "@/components/site/section-heading";
 import { Reveal, Stagger, StaggerItem } from "@/components/site/reveal";
 import { useI18n } from "@/lib/i18n/context";
+import { assetPath } from "@/lib/utils";
 
 const reasons = [
   { icon: ScanSearch, titleKey: "why.reason1", descKey: "why.reason1Desc", color: "from-[#1A237E] to-[#0D1642]" },
@@ -38,7 +39,7 @@ export function WhyChooseUs() {
           <div className="relative overflow-hidden rounded-[2rem] shadow-[0_30px_80px_-35px_rgba(13,22,66,0.45)] ring-1 ring-navy/5">
             <div className="relative aspect-[4/5] w-full sm:aspect-[5/4] lg:aspect-[4/5]">
               <Image
-                src="/images/about-team.png"
+                src={assetPath("/images/about-team.png")}
                 alt="VA Home Cleaners team"
                 fill
                 sizes="(max-width: 1024px) 100vw, 50vw"

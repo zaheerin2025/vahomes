@@ -1,8 +1,6 @@
 import type { NextConfig } from "next";
 
-const isGithubActions = process.env.GITHUB_ACTIONS === "true" || process.env.GITHUB_ACTIONS === true;
-const repo = isGithubActions ? process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || "" : "";
-const basePath = repo ? `/${repo}` : "";
+const basePath = "/vahomes";
 
 const nextConfig: NextConfig = {
   output: "export",
@@ -10,7 +8,7 @@ const nextConfig: NextConfig = {
   images: {
     unoptimized: true,
   },
-  ...(basePath ? { basePath } : {}),
+  basePath,
   typescript: {
     ignoreBuildErrors: true,
   },

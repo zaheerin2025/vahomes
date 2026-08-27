@@ -1,8 +1,4 @@
-/**
- * Detailed service content for VA Home Cleaners service detail pages.
- * Each service has rich content: hero, tagline, description, what's included,
- * process, benefits, FAQ, and related services.
- */
+import { assetPath } from "@/lib/utils";
 
 export type ServiceDetail = {
   slug: string;
@@ -36,8 +32,8 @@ export const SERVICE_DETAILS: ServiceDetail[] = [
     description:
       "Our Regular Cleaning service is designed to keep your space consistently fresh and tidy. It's the ideal choice for homes and offices that need ongoing maintenance — covering all the everyday tasks that keep dust, clutter, and grime from building up. Schedule it weekly, bi-weekly, or monthly to match your routine.",
     icon: "CalendarClock",
-    image: "/images/service-recurring.png",
-    gallery: ["/images/work-1.jpg", "/images/gallery-kitchen.png", "/images/work-3.jpg"],
+    image: assetPath("/images/service-recurring.png"),
+    gallery: [assetPath("/images/work-1.jpg"), assetPath("/images/gallery-kitchen.png"), assetPath("/images/work-3.jpg")],
     accent: "navy",
     popular: true,
     priceFrom: "Affordable rates",
