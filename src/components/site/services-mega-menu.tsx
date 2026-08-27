@@ -38,7 +38,6 @@ const ACCENT_GRAD: Record<string, string> = {
   gold: "from-[#D4AF37] to-[#9B7B0E]",
 };
 
-// Map service slug → translation key for the name
 const SERVICE_NAME_KEY: Record<string, string> = {
   "regular-cleaning": "services.regular",
   "light-cleaning": "services.light",
@@ -85,6 +84,11 @@ const CATEGORIES: CategoryDef[] = [
   },
 ];
 
+/**
+ * Full-width services mega-menu — rendered as a sibling of the header bar
+ * (not inside the narrow trigger button wrapper) so it spans the full
+ * container width and stays centered regardless of trigger position.
+ */
 export function ServicesMegaMenu({
   isOpen,
   onClose,
@@ -93,41 +97,47 @@ export function ServicesMegaMenu({
   onClose: () => void;
 }) {
   const { t } = useI18n();
-
   const getService = (slug: string) => SERVICE_DETAILS.find((s) => s.slug === slug);
 
   return (
     <AnimatePresence>
       {isOpen ? (
-        <>
-          {/* invisible full-width click-catcher placed by parent wrapper */}
+        <motion.div
+          initial={{ opacity: 0 }}
+          animate={{ opacity: 1 }}
+          exit={{ opacity: 0 }}
+          transition={{ duration: 0.18 }}
+          className="fixed inset-0 z-40 hidden lg:block"
+          onClick={onClose}
+          aria-hidden={!isOpen}
+        >
+          {/* backdrop to dim page behind */}
+          <div className="absolute inset-0 bg-navy/20 backdrop-blur-[2px]" />
+
+          {/* full-width dropdown panel, centered to viewport */}
           <motion.div
-            initial={{ opacity: 0, y: -8 }}
+            initial={{ opacity: 0, y: -12 }}
             animate={{ opacity: 1, y: 0 }}
-            exit={{ opacity: 0, y: -8 }}
-            transition={{ duration: 0.22, ease: [0.22, 1, 0.36, 1] }}
-            className="absolute left-1/2 top-full z-50 mt-2 w-[min(960px,calc(100vw-2rem))] -translate-x-1/2"
+            exit={{ opacity: 0, y: -12 }}
+            transition={{ duration: 0.24, ease: [0.22, 1, 0.36, 1] }}
             role="menu"
             aria-label="Services menu"
+            onClick={(e) => e.stopPropagation()}
+            className="absolute inset-x-0 top-0 mx-auto w-full max-w-7xl px-5 pt-[var(--header-h)] sm:px-8 lg:px-10"
+            style={{ ["--header-h" as string]: "96px" }}
           >
-            {/* arrow pointer */}
-            <div className="absolute left-1/2 top-0 -z-10 size-4 -translate-x-1/2 -translate-y-1/2 rotate-45 rounded-sm border-l border-t border-navy/5 bg-white shadow-sm" />
-
-            <div className="overflow-hidden rounded-3xl border border-navy/5 bg-white shadow-[0_30px_80px_-30px_rgba(13,22,66,0.35)]">
+            <div className="overflow-hidden rounded-b-3xl border border-navy/5 border-t-0 bg-white shadow-[0_30px_80px_-30px_rgba(13,22,66,0.4)]">
               {/* top accent bar */}
               <div className="h-1 w-full bg-gradient-to-r from-[#1A237E] via-[#C62828] to-[#D4AF37]" />
 
-              <div className="grid grid-cols-1 lg:grid-cols-[1fr_1fr_1fr_1.1fr]">
+              <div className="grid grid-cols-[1fr_1fr_1fr_1.05fr]">
                 {/* ===== Category columns ===== */}
                 {CATEGORIES.map((cat, ci) => (
                   <div
                     key={cat.key}
-                    className={cn(
-                      "p-5",
-                      ci > 0 && "border-l border-navy/5"
-                    )}
+                    className={cn("p-6", ci > 0 && "border-l border-navy/5")}
                   >
-                    <p className="mb-3 flex items-center gap-2 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#9B7B0E]">
+                    <p className="mb-4 flex items-center gap-2 text-[0.62rem] font-bold uppercase tracking-[0.18em] text-[#9B7B0E]">
                       <span className="size-1.5 rounded-full bg-gold" />
                       {t(cat.labelKey)}
                     </p>
@@ -157,7 +167,7 @@ export function ServicesMegaMenu({
                                 <p className="flex items-center gap-1 text-sm font-bold leading-tight text-navy transition-colors group-hover:text-crimson">
                                   {name}
                                   {svc.popular ? (
-                                    <span className="ml-1 rounded-full bg-gold/20 px-1.5 py-0.5 text-[0.5rem] font-bold uppercase tracking-wider text-[#9B7B0E]">
+                                    <span className="ml-0.5 rounded-full bg-gold/20 px-1.5 py-0.5 text-[0.5rem] font-bold uppercase tracking-wider text-[#9B7B0E]">
                                       ★
                                     </span>
                                   ) : null}
@@ -175,7 +185,7 @@ export function ServicesMegaMenu({
                 ))}
 
                 {/* ===== Featured offer column ===== */}
-                <div className="relative overflow-hidden bg-gradient-to-br from-[#1A237E] via-[#15195F] to-[#0D1642] p-5 text-white">
+                <div className="relative overflow-hidden bg-gradient-to-br from-[#1A237E] via-[#15195F] to-[#0D1642] p-6 text-white">
                   <div className="pointer-events-none absolute -right-8 -top-8 size-32 rounded-full bg-gold/20 blur-2xl" />
                   <div className="pointer-events-none absolute -bottom-8 -left-8 size-32 rounded-full bg-crimson/15 blur-2xl" />
                   <div className="absolute inset-x-0 top-0 h-px bg-gradient-to-r from-transparent via-gold/50 to-transparent" />
@@ -192,7 +202,7 @@ export function ServicesMegaMenu({
                           src="/images/service-hourly.png"
                           alt={t("nav.featuredHourlyTitle")}
                           fill
-                          sizes="240px"
+                          sizes="260px"
                           className="object-cover"
                         />
                         <div className="absolute inset-0 bg-gradient-to-t from-navy/80 to-transparent" />
@@ -224,7 +234,7 @@ export function ServicesMegaMenu({
               </div>
 
               {/* ===== Bottom bar ===== */}
-              <div className="flex items-center justify-between gap-3 border-t border-navy/5 bg-gold-soft/30 px-5 py-3">
+              <div className="flex items-center justify-between gap-3 border-t border-navy/5 bg-gold-soft/30 px-6 py-3.5">
                 <p className="text-xs font-medium text-muted-foreground">
                   {t("nav.dropdownSub")}
                 </p>
@@ -239,13 +249,13 @@ export function ServicesMegaMenu({
               </div>
             </div>
           </motion.div>
-        </>
+        </motion.div>
       ) : null}
     </AnimatePresence>
   );
 }
 
-/* ===== Trigger button wrapper ===== */
+/* ===== Trigger button ===== */
 export function ServicesNavTrigger({
   isActive,
   isOpen,

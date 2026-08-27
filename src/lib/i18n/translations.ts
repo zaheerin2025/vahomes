@@ -242,6 +242,9 @@ export const translations: Record<Locale, Dict> = {
     "footer.terms": "Terms of Service",
     "footer.madeWith": "Made with",
     "footer.madeFor": "for cleaner spaces",
+    "footer.newsletterText": "Get cleaning tips & special offers in your inbox.",
+    "footer.emailPlaceholder": "Enter your email",
+    "footer.subscribe": "Subscribe",
 
     // ===== Booking page =====
     "book.eyebrow": "Book a Cleaning",
@@ -576,6 +579,9 @@ export const translations: Record<Locale, Dict> = {
     "footer.terms": "Términos de Servicio",
     "footer.madeWith": "Hecho con",
     "footer.madeFor": "para espacios más limpios",
+    "footer.newsletterText": "Recibe consejos de limpieza y ofertas especiales en tu correo.",
+    "footer.emailPlaceholder": "Ingresa tu correo",
+    "footer.subscribe": "Suscribir",
 
     // ===== Booking page =====
     "book.eyebrow": "Reservar Limpieza",

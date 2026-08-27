@@ -140,7 +140,7 @@ export function Header() {
               ) : null}
             </Link>
 
-            {/* Services dropdown trigger */}
+            {/* Services dropdown trigger — panel is rendered separately below for full-width centering */}
             <div
               className="relative"
               onMouseEnter={openServices}
@@ -152,7 +152,6 @@ export function Header() {
                 onClick={() => (servicesOpen ? closeServices(0) : openServices())}
                 label={t("nav.services")}
               />
-              <ServicesMegaMenu isOpen={servicesOpen} onClose={() => closeServices(0)} />
             </div>
 
             {navLinks.map((link) => (
@@ -210,6 +209,9 @@ export function Header() {
           </div>
         </div>
       </header>
+
+      {/* Services mega-menu — rendered as a sibling so it can span full viewport width */}
+      <ServicesMegaMenu isOpen={servicesOpen} onClose={() => closeServices(0)} />
 
       {/* Mobile menu */}
       <AnimatePresence>

@@ -227,3 +227,39 @@ Stage Summary:
 - VLM confirmed: professional, modern, well-organized mega-menu ✓
 - VLM confirmed: Spanish mega-menu fully translated ✓
 - ESLint clean, all routes HTTP 200, no console errors
+
+---
+Task ID: 6
+Agent: main (Z.ai Code)
+Task: Fix mega-menu positioning (was jammed to left) + redesign footer professionally (remove bullet dots)
+
+Work Log:
+- **Mega-menu positioning fix**: The previous mega-menu was rendered INSIDE the narrow Services trigger button wrapper with `left-1/2 -translate-x-1/2`, so the 960px panel's center aligned to the button (which sits in the left half of the header) — making it appear jammed left.
+  - Restructured: mega-menu now renders as a SIBLING of the header bar (not inside the trigger wrapper), so it can span full viewport width.
+  - Changed to `fixed inset-0 z-40` overlay with a dimming backdrop (navy/20 + backdrop blur) for focus.
+  - Panel uses `absolute inset-x-0 top-0 mx-auto max-w-7xl px-5/8/10` — matches the same max-w-7xl container as the header, so edges align perfectly with the logo (left) and CTA (right).
+  - Removed the old arrow pointer (no longer needed with full-width panel).
+  - Added `border-t-0 rounded-b-3xl` so it drops cleanly from the header bottom edge.
+  - Verified via DOM: panel now spans left=80 to right=1360 (1280px) on 1440px viewport — perfectly centered with equal 80px margins, aligned to header container.
+  - VLM confirmed: "perfectly centered, aligned with header nav container, professional enterprise-level feel".
+
+- **Footer professional redesign**: Removed the amateur `size-1 rounded-full bg-white/30` bullet dots before every link. Restructured as a proper professional footer:
+  - **Clean text links**: FooterTextLink component uses `w-fit` inline links with a subtle gold underline that animates from 0→full width on hover (`h-px w-0 group-hover:w-full bg-gold transition-all`). No bullets, no dots — just clean typography.
+  - **Refined column headings**: Changed from gold to `text-white/45` (subtle, not loud) with wider letter-spacing for a more sophisticated look.
+  - **Better link spacing**: gap-2.5 (tighter, more list-like) instead of gap-3.
+  - **Newsletter strip added**: Professional email signup between link columns and bottom bar — "Get cleaning tips & special offers in your inbox" + email input + Subscribe button. Bilingual (EN/ES).
+  - **Contact rows redesigned**: ContactRow component with colored icon tiles (crimson phone, gold email, purple hours, teal area) — cleaner than the previous mixed approach.
+  - **Darker, richer background**: `bg-[#0B1230]` (deeper navy) with larger, softer glows (`blur-[100px]`) for depth.
+  - **Removed "Made with ❤" line** from bottom bar (was amateur) — replaced with cleaner copyright + legal links only.
+  - **Hairline separators**: `border-white/[0.08]` (subtle 8% opacity) instead of heavy `border-white/10`.
+  - Added 3 new translation keys (newsletterText, emailPlaceholder, subscribe) in EN + ES.
+
+Stage Summary:
+- Mega-menu now FULL-WIDTH and CENTERED, aligned to header container ✓ (verified via DOM: 1280px panel, 80px equal margins)
+- VLM confirmed: "perfectly centered, aligned with header nav, enterprise-level feel" ✓
+- Footer bullet dots REMOVED ✓ — clean text links with animated gold underline-on-hover ✓
+- Newsletter signup strip added (bilingual) ✓
+- Contact items with colored icon tiles ✓
+- Cleaner, more sophisticated dark navy background ✓
+- VLM confirmed: "no bullet dots, clean text styling, professional aesthetic" ✓
+- ESLint clean, all routes HTTP 200, no console errors ✓
