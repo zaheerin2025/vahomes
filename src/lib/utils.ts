@@ -7,8 +7,17 @@ export function cn(...inputs: ClassValue[]) {
 
 export function assetPath(path: string): string {
   if (!path) return path;
-  if (path.startsWith("http://") || path.startsWith("https://") || path.startsWith("data:")) return path;
-  const basePath = "/vahomes";
+  if (
+    path.startsWith("http://") ||
+    path.startsWith("https://") ||
+    path.startsWith("data:") ||
+    path.startsWith("tel:") ||
+    path.startsWith("mailto:") ||
+    path.startsWith("#")
+  ) {
+    return path;
+  }
   const cleanPath = path.startsWith("/") ? path : `/${path}`;
-  return `${basePath}${cleanPath}`;
+  if (cleanPath.startsWith("/vahomes/")) return cleanPath;
+  return `/vahomes${cleanPath}`;
 }

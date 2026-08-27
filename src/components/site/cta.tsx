@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { Phone, ArrowRight, type LucideIcon } from "lucide-react";
-import { cn } from "@/lib/utils";
+import { cn, assetPath } from "@/lib/utils";
 import { SITE } from "@/lib/site";
 
 /* ---------------- Primary CTA (crimson gradient) ---------------- */
@@ -55,7 +55,7 @@ export function CtaPrimary({
 
   if (href) {
     return (
-      <Link href={href} className={classes} onClick={onClick}>
+      <Link href={assetPath(href)} className={classes} onClick={onClick}>
         {content}
       </Link>
     );
@@ -83,7 +83,7 @@ export function CtaSecondary({
 
   if (href) {
     return (
-      <Link href={href} className={classes}>
+      <Link href={assetPath(href)} className={classes}>
         {Icon ? <Icon className="size-4 shrink-0" /> : null}
         <span>{children}</span>
       </Link>
@@ -109,7 +109,7 @@ export function ArrowLink({
 }) {
   return (
     <Link
-      href={href}
+      href={assetPath(href)}
       className={cn(
         "group inline-flex items-center gap-1.5 text-sm font-semibold text-crimson transition-colors hover:text-crimson-dark",
         className
