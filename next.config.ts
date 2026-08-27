@@ -1,24 +1,15 @@
 import type { NextConfig } from "next";
 
 const isGithubActions = process.env.GITHUB_ACTIONS || false;
-
-let assetPrefix = "";
-let basePath = "";
-
-if (isGithubActions) {
-  const repo = process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || "";
-  if (repo) {
-    assetPrefix = `/${repo}/`;
-    basePath = `/${repo}`;
-  }
-}
+const repo = isGithubActions ? process.env.GITHUB_REPOSITORY?.replace(/.*?\//, "") || "" : "";
+const basePath = repo ? `/${repo}` : "";
 
 const nextConfig: NextConfig = {
   output: "export",
   images: {
     unoptimized: true,
   },
-  ...(basePath ? { basePath, assetPrefix } : {}),
+  ...(basePath ? { basePath } : {}),
   typescript: {
     ignoreBuildErrors: true,
   },
