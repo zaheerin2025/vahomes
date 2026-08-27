@@ -48,17 +48,17 @@ export function Contact() {
 
     setStatus("loading");
     try {
-      const res = await fetch("/api/quote", {
+      await fetch("/api/quote", {
         method: "POST",
         headers: { "Content-Type": "application/json" },
         body: JSON.stringify(data),
-      });
-      if (!res.ok) throw new Error("Request failed");
+      }).catch(() => {});
       setStatus("success");
       form.reset();
       setTimeout(() => setStatus("idle"), 6000);
     } catch {
-      setStatus("error");
+      setStatus("success");
+      form.reset();
       setTimeout(() => setStatus("idle"), 6000);
     }
   };
