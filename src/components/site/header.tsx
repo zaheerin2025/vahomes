@@ -33,14 +33,17 @@ const SERVICE_NAME_KEY: Record<string, string> = {
 
 const MOBILE_CATEGORIES = [
   {
+    key: "residential",
     labelKey: "nav.servicesResidential",
     slugs: ["deep-cleaning", "regular-cleaning", "light-cleaning", "weekly-biweekly"],
   },
   {
+    key: "commercial",
     labelKey: "nav.servicesCommercial",
     slugs: ["commercial", "post-construction"],
   },
   {
+    key: "specialty",
     labelKey: "nav.servicesSpecialty",
     slugs: ["eco-friendly", "hourly"],
   },

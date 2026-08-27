@@ -263,3 +263,17 @@ Stage Summary:
 - Cleaner, more sophisticated dark navy background ✓
 - VLM confirmed: "no bullet dots, clean text styling, professional aesthetic" ✓
 - ESLint clean, all routes HTTP 200, no console errors ✓
+
+---
+Task ID: 7
+Agent: main (Z.ai Code)
+Task: Fix React "unique key prop" console warning in mobile menu
+
+Work Log:
+- Root cause: The MOBILE_CATEGORIES array objects only had `labelKey` and `slugs` properties — no `key` field. The mobile menu code used `<div key={cat.key}>` in the `.map()`, but `cat.key` was `undefined` for all 3 categories, so all divs got `key={undefined}` (duplicate/missing keys) → React warning.
+- Fix: Added a `key` field to each MOBILE_CATEGORIES object ("residential", "commercial", "specialty"), matching the pattern already used in the desktop mega-menu's CATEGORIES array.
+
+Stage Summary:
+- React "Each child in a list should have a unique key prop" warning: FIXED ✓
+- Console now fully clean (0 key warnings, 0 errors) ✓
+- ESLint clean ✓
