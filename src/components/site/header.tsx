@@ -14,7 +14,6 @@ import { SITE } from "@/lib/site";
 import { cn } from "@/lib/utils";
 
 const NAV_KEYS = [
-  { key: "nav.home", href: "/#home" },
   { key: "nav.about", href: "/#about" },
   { key: "nav.work", href: "/#work" },
   { key: "nav.contact", href: "/#contact" },
@@ -214,7 +213,12 @@ export function Header() {
       </header>
 
       {/* Services mega-menu — rendered as a sibling so it can span full viewport width */}
-      <ServicesMegaMenu isOpen={servicesOpen} onClose={() => closeServices(0)} />
+      <ServicesMegaMenu
+        isOpen={servicesOpen}
+        onClose={() => closeServices(0)}
+        onEnter={openServices}
+        onLeave={() => closeServices()}
+      />
 
       {/* Mobile menu */}
       <AnimatePresence>

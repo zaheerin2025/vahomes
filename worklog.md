@@ -277,3 +277,24 @@ Stage Summary:
 - React "Each child in a list should have a unique key prop" warning: FIXED ✓
 - Console now fully clean (0 key warnings, 0 errors) ✓
 - ESLint clean ✓
+
+---
+Task ID: 8
+Agent: main (Z.ai Code)
+Task: Fix duplicated Home button + fix mega-menu not clickable (hiding on mouse move)
+
+Work Log:
+- **Duplicate Home button fix**: The desktop nav rendered a standalone `<Link href="/#home">` for "Home" (before the Services trigger) AND the `NAV_KEYS` array still contained `{ key: "nav.home", href: "/#home" }` — so "Home" appeared twice. Removed `nav.home` from `NAV_KEYS` array. Verified: nav now shows exactly "Home | Services | About | Our Work | Contact" (5 items, 1 Home link).
+
+- **Mega-menu hover fix**: The mega-menu was restructured (Task 6) to render as a `fixed inset-0` overlay SIBLING of the header (for full-width centering). But the hover handling was broken: the trigger button's `<div>` wrapper had `onMouseLeave={() => closeServices()}` which fired immediately when the mouse left the small trigger area. The mega-menu panel (in the sibling overlay) had NO `onMouseEnter` to cancel the close timer — so the menu closed before the user could move their mouse into it.
+  - Fix: Added `onEnter` and `onLeave` props to `ServicesMegaMenu` component, attached to the panel `<div>` as `onMouseEnter={onEnter}` and `onMouseLeave={onLeave}`.
+  - Header passes `onEnter={openServices}` (cancels close timer) and `onLeave={() => closeServices()}` (starts 120ms close timer) to the mega-menu.
+  - Flow: mouse enters trigger → opens. Mouse leaves trigger (moving down) → 120ms close timer starts. Mouse enters panel → timer cancelled, menu stays open. Mouse leaves panel → close timer starts. Mouse moves away → menu closes.
+  - Verified: menu opens on hover, stays open when moving mouse into panel, clicking a service link navigates correctly, and menu closes when mouse moves away.
+
+Stage Summary:
+- Duplicate Home button: FIXED ✓ (1 Home link, 5 nav items total)
+- Mega-menu hover: FIXED ✓ (opens, stays open on mouse-enter into panel, closes on mouse-leave)
+- Mega-menu click: FIXED ✓ (service links clickable, navigates to /services/[slug])
+- Console: fully clean (0 errors, 0 warnings, 0 key issues) ✓
+- ESLint clean ✓

@@ -92,9 +92,13 @@ const CATEGORIES: CategoryDef[] = [
 export function ServicesMegaMenu({
   isOpen,
   onClose,
+  onEnter,
+  onLeave,
 }: {
   isOpen: boolean;
   onClose: () => void;
+  onEnter: () => void;
+  onLeave: () => void;
 }) {
   const { t } = useI18n();
   const getService = (slug: string) => SERVICE_DETAILS.find((s) => s.slug === slug);
@@ -123,6 +127,8 @@ export function ServicesMegaMenu({
             role="menu"
             aria-label="Services menu"
             onClick={(e) => e.stopPropagation()}
+            onMouseEnter={onEnter}
+            onMouseLeave={onLeave}
             className="absolute inset-x-0 top-0 mx-auto w-full max-w-7xl px-5 pt-[var(--header-h)] sm:px-8 lg:px-10"
             style={{ ["--header-h" as string]: "96px" }}
           >
